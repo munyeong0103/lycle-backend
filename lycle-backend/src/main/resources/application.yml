@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lycle_backend?serverTimezone=Asia/Seoul
+    username: root
+    password: 9520awdr0259!
+  jpa:
+    hibernate:
+      ddl-auto: create
+      show-sql: true # DDL 출력
