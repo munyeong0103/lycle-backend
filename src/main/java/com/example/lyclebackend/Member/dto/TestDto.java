@@ -1,4 +1,4 @@
 package com.example.lyclebackend.Member.dto;
 
-public class TestDTO {
+public class TestDto {
 }
