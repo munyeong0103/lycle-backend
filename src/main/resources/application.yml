@@ -6,5 +6,5 @@ spring:
     password: 9520awdr0259!
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       show-sql: true # DDL 출력

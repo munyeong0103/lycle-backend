@@ -1,14 +1,19 @@
 package com.example.lyclebackend.Member.entity;
 
+import com.example.lyclebackend.Item.entity.ItemMember;
+import com.example.lyclebackend.Nft.entity.Nft;
+import com.example.lyclebackend.Nft.entity.NftItemLike;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name="Member")
+@Table(name="member")
 @Entity
 public class Member {
     @Id
@@ -24,4 +29,13 @@ public class Member {
 
     @Column(name="wallet_address")
     private String walletAddress;
+
+    @OneToMany(mappedBy = "member")
+    private List<ItemMember> itemMemberList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<NftItemLike> nftItemLikeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Nft> nftList = new ArrayList<>();
 }
