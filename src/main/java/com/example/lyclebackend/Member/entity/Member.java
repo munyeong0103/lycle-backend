@@ -21,6 +21,12 @@ public class Member {
     @Column(name="member_id")
     private Long memberId;
 
+    @Column(name="account_name")
+    private String accountName;
+
+    @Column(name="password")
+    private String password;
+
     @Column(name="email")
     private String email;
 

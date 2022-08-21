@@ -17,8 +17,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     @Override
-    public UserDetails loadUserByUsername(String walletAddress) throws UsernameNotFoundException {
-        Member member = memberRepository.findByWalletAddress(walletAddress);
-        return new User(member.getNickname(), walletAddress, new ArrayList<>());
+    public UserDetails loadUserByUsername(String accountName) throws UsernameNotFoundException {
+        Member member = memberRepository.findByAccountName(accountName);
+        return new User(accountName, member.getPassword(), new ArrayList<>());
     }
 }

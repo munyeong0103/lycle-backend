@@ -7,6 +7,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    @Query("select m from Member m where m.walletAddress = :walletAddress")
-    Member findByWalletAddress(String walletAddress);
+
+    @Query("select m from Member m where m.accountName = :accountName")
+    Member findByAccountName(String accountName);
+
+    Boolean existsByAccountName(String accountName);
+
+    Boolean existsByNickname(String nickname);
+
+    Boolean existsByEmail(String email);
+
+    Boolean existsByWalletAddress(String walletAddress);
 }
