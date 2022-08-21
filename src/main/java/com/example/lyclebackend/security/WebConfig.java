@@ -1,4 +1,4 @@
-package com.example.lyclebackend.Member.security;
+package com.example.lyclebackend.security;
 
 
 import org.springframework.context.annotation.Configuration;

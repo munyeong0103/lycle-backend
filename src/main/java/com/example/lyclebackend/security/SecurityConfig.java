@@ -1,4 +1,4 @@
-package com.example.lyclebackend.Member.security;
+package com.example.lyclebackend.security;
 
 
 import lombok.RequiredArgsConstructor;
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/auth/*").permitAll().
+                .authorizeRequests().antMatchers("/auth/*", "/valid/*/*").permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
