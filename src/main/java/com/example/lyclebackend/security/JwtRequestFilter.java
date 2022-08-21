@@ -1,4 +1,4 @@
-package com.example.lyclebackend.Member.security;
+package com.example.lyclebackend.security;
 
 import com.example.lyclebackend.Member.service.MyUserDetailsService;
 import com.example.lyclebackend.Member.util.JwtUtil;
@@ -30,16 +30,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
 
-        String nickname= null;
+        String accountName= null;
         String jwt = null;
 
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             jwt = authorizationHeader.substring(7);
-            nickname = jwtUtil.extractUsername(jwt);
+            accountName = jwtUtil.extractUsername(jwt);
         }
 
-        if(nickname != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(nickname);
+        if(accountName != null && SecurityContextHolder.getContext().getAuthentication() == null){
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(accountName);
 
             if(jwtUtil.validateToken(jwt, userDetails)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =

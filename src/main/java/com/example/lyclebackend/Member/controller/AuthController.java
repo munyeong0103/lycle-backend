@@ -30,14 +30,14 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody SignUpDto signUpDto){
-        authService.saveMember(signUpDto.getWalletAddress());
+        authService.saveMember(signUpDto);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody SignUpDto signUpDto){
-        String jwt = authService.login(signUpDto.getWalletAddress());
+        String jwt = authService.login(signUpDto);
         LoginDto loginDto = new LoginDto();
         loginDto.setAccessToken(jwt);
         return ResponseEntity.status(HttpStatus.OK).body(loginDto);

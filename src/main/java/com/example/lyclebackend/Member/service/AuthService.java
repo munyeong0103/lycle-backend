@@ -25,44 +25,29 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final MyUserDetailsService userDetailsService;
 
-    public String randomNickname(){
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        Random random = new Random();
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-        return generatedString;
-    }
-
     @Transactional
-    public boolean saveMember(String walletAddress) {
+    public boolean saveMember(SignUpDto signUpDto) {
         String salt = saltUtil.genSalt();
-        String nickname = randomNickname();
-
-        SignUpDto signUpDto = new SignUpDto();
-        signUpDto.setNickname(nickname);
         signUpDto.setSalt(salt);
-//        signUpDto.setWalletAddress(saltUtil.encodePassword(salt, walletAddress));
-        signUpDto.setWalletAddress(walletAddress);
+        signUpDto.setPassword(saltUtil.encodePassword(salt, signUpDto.getPassword()));
 
         Member member = signUpDto.toEntity();
         memberRepository.save(member);
         return true;
     }
 
-    public String login(String walletAddress){
-        Member member = memberRepository.findByWalletAddress(walletAddress);
-//        String salt = member.getSalt();
-//        String encodeWalletAddress = saltUtil.encodePassword(salt, walletAddress);
+    public String login(SignUpDto signUpDto){
+        Member member = memberRepository.findByAccountName(signUpDto.getAccountName());
+        String salt = member.getSalt();
+        String encodePassword = saltUtil.encodePassword(salt, signUpDto.getPassword());
+        if (member.getPassword().equals(encodePassword)) {
+            final UserDetails userDetails = userDetailsService
+                    .loadUserByUsername(signUpDto.getAccountName());
+            final String jwt = jwtUtil.generateToken(userDetails);
 
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(walletAddress);
-        final String jwt = jwtUtil.generateToken(userDetails);
+            return jwt;
+        }
+        return "f";
 
-        return jwt;
     }
 }
