@@ -19,7 +19,7 @@ public class ItemMember {
     private Long itemMemberId;
 
     @Column(name="count")
-    private Long count;
+    private Integer count;
 
     @Column(name="status")
     private String status;

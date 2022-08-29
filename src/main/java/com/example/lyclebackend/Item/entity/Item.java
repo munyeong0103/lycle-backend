@@ -23,7 +23,7 @@ public class Item extends BaseTimeEntity {
     private String title;
 
     @Column(name="price")
-    private Long price;
+    private Integer price;
 
     @Column(name="content")
     private String content;
@@ -31,8 +31,8 @@ public class Item extends BaseTimeEntity {
     @Column(name="item_img")
     private String itemImg;
 
-    @Column(name="view")
-    private Long view;
+    @Column(name="view_cnt")
+    private Integer viewCnt;
 
     @OneToMany(mappedBy = "item")
     private List<ItemMember> itemMemberList = new ArrayList<>();
