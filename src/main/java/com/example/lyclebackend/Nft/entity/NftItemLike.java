@@ -24,4 +24,10 @@ public class NftItemLike {
     @ManyToOne
     @JoinColumn(name = "nft_item_id", foreignKey = @ForeignKey(name = "FK_nftitem_nftitemlike"), insertable = false , updatable = false)
     private NftItem nftItem;
+
+//    @Column(name = "nft_item_id")
+//    private Long nftItemId;
+//
+//    @Column(name = "member_id")
+//    private Long memberId;
 }
