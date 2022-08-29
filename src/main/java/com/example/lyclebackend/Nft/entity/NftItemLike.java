@@ -1,9 +1,7 @@
 package com.example.lyclebackend.Nft.entity;
 
 import com.example.lyclebackend.Member.entity.Member;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +9,8 @@ import javax.persistence.*;
 @Getter
 @Table(name="nft_item_like")
 @Entity
+@AllArgsConstructor
+@Builder
 public class NftItemLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,9 @@ public class NftItemLike {
     @JoinColumn(name = "nft_item_id", foreignKey = @ForeignKey(name = "FK_nftitem_nftitemlike"), insertable = false , updatable = false)
     private NftItem nftItem;
 
-//    @Column(name = "nft_item_id")
-//    private Long nftItemId;
-//
-//    @Column(name = "member_id")
-//    private Long memberId;
+    @Column(name = "nft_item_id")
+    private Long nftItemId;
+
+    @Column(name = "member_id")
+    private Long memberId;
 }

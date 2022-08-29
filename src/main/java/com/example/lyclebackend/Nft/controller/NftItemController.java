@@ -72,4 +72,6 @@ public class NftItemController {
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+
 }
