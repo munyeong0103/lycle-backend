@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NftItemLikeRepository extends JpaRepository<NftItemLike, Long> {
-    Boolean findByNftItemAndMember(Long nftItem, Long member);
+public interface NftItemLikeRepository extends JpaRepository<NftItemLike, Long>, CustomNftItemLikeRepository {
+    void deleteByNftItemLikeId(Long nftItemLikeId);
+
+    Boolean existsByNftItemIdAndMemberId(Long nftItemId, Long memberId);
 }
