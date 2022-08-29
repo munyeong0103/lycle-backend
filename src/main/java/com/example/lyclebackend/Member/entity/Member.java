@@ -1,7 +1,7 @@
 package com.example.lyclebackend.Member.entity;
 
 import com.example.lyclebackend.Item.entity.ItemMember;
-import com.example.lyclebackend.Nft.entity.Nft;
+import com.example.lyclebackend.Nft.entity.NftItem;
 import com.example.lyclebackend.Nft.entity.NftItemLike;
 import lombok.*;
 
@@ -42,12 +42,15 @@ public class Member {
     @Column(name="salt")
     private String salt;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<ItemMember> itemMemberList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<NftItemLike> nftItemLikeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<Nft> nftList = new ArrayList<>();
+    @OneToMany(mappedBy = "sellerId", fetch = FetchType.LAZY)
+    private List<NftItem> nftItemSellList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "buyerId", fetch = FetchType.LAZY)
+    private List<NftItem> nftItemBuyList = new ArrayList<>();
 }
