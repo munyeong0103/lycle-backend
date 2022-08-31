@@ -1,6 +1,6 @@
-package com.example.lyclebackend.Nft.dto;
+package com.example.lyclebackend.Item.dto;
 
-import com.example.lyclebackend.Member.entity.Member;
+import com.example.lyclebackend.Item.entity.Item;
 import com.example.lyclebackend.Nft.entity.NftItem;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +11,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class PostNftItemDto {
+public class PostItemDto {
 
-    private String nftItemImg;
+    private String itemImg;
 
     private String title;
 
@@ -23,16 +23,13 @@ public class PostNftItemDto {
 
     private Integer viewCnt;
 
-    private Long sellerId;
-
-    public NftItem toEntity(){
-        NftItem build = NftItem.builder()
-                .nftItemImg(nftItemImg)
+    public Item toEntity(){
+        Item build = Item.builder()
+                .itemImg(itemImg)
                 .title(title)
                 .price(price)
                 .content(content)
                 .viewCnt(viewCnt)
-                .sellerId(sellerId)
                 .build();
         return build;
     }
