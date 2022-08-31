@@ -79,7 +79,7 @@ public class NftItemRepositoryImpl implements CustomNftItemRepository {
     @Override
     public FindNftItemDto findNftItemBy(Long nftItemId, Long memberId) {
         return queryFactory
-                .select(Projections.bean(FindNftItemDto.class, n.nftItemId, n.nftItemImg, m.nickname, m.profileImg, n.title, n.createdDate, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.content, n.seller.memberId.as("sellerId"), n.seller.memberId.eq(m.memberId).as("isOwner")))
+                .select(Projections.bean(FindNftItemDto.class, n.nftItemId, n.nftItemImg, m.profileImg, m.nickname, m.profileImg, n.title, n.createdDate, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.content, n.seller.memberId.as("sellerId"), n.seller.memberId.eq(m.memberId).as("isOwner")))
                 .from(n)
                 .leftJoin(n.seller, m)
                 .where(n.nftItemId.eq(nftItemId))

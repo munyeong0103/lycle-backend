@@ -1,4 +1,4 @@
-package com.example.lyclebackend.Nft.dto;
+package com.example.lyclebackend.Item.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,29 +7,20 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class NftItemListInDto {
-    private Long nftItemId;
+public class ItemListInDto {
+    private Long itemId;
 
-    private String profileImg;
-
-    private String nftItemImg;
-
-    private String nickname;
-
-    private Long memberId;
+    private String itemImg;
 
     private String title;
 
     private Integer price;
 
     private Integer viewCnt;
-
-    private Integer likeCnt;
 
     private LocalDateTime createdDate;
 }
