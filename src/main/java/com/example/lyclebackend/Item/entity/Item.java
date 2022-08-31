@@ -1,9 +1,8 @@
 package com.example.lyclebackend.Item.entity;
 
+import com.example.lyclebackend.Item.dto.PutItemDto;
 import com.example.lyclebackend.converter.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +12,8 @@ import java.util.List;
 @Getter
 @Table(name="item")
 @Entity
+@AllArgsConstructor
+@Builder
 public class Item extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +37,10 @@ public class Item extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "item")
     private List<ItemMember> itemMemberList = new ArrayList<>();
+
+    public void update(PutItemDto putItemDto) {
+        this.title = putItemDto.getTitle();
+        this.content = putItemDto.getContent();
+        this.price = putItemDto.getPrice();
+    }
 }
