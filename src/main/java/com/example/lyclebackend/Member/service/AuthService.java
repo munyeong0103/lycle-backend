@@ -30,7 +30,7 @@ public class AuthService {
         String salt = saltUtil.genSalt();
         signUpDto.setSalt(salt);
         signUpDto.setPassword(saltUtil.encodePassword(salt, signUpDto.getPassword()));
-
+        signUpDto.setTokenCnt(0);
         Member member = signUpDto.toEntity();
         memberRepository.save(member);
         return true;
