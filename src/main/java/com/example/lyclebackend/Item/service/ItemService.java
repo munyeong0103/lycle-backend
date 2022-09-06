@@ -35,7 +35,6 @@ public class ItemService {
     @Transactional
     public FindItemDto findItem(Long itemId, Long memberId) {
         FindItemDto findItemDto = itemRepository.findItemBy(itemId, memberId);
-
         return findItemDto;
     }
 

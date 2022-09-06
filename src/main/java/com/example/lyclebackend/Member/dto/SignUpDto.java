@@ -22,6 +22,10 @@ public class SignUpDto {
 
     private String email;
 
+    private String profileImg;
+
+    private Integer tokenCnt;
+
     public Member toEntity(){
         Member build = Member.builder()
                 .accountName(accountName)
@@ -30,6 +34,8 @@ public class SignUpDto {
                 .walletAddress(walletAddress)
                 .salt(salt)
                 .email(email)
+                .profileImg(profileImg)
+                .tokenCnt(tokenCnt)
                 .build();
         return build;
     }

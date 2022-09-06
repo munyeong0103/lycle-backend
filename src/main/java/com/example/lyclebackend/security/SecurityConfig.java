@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/auth/*", "/valid/*/*", "/nftItem/*", "/nftItem", "/nftItem/*/*", "/item", "/item/*").permitAll().
+                .authorizeRequests().antMatchers("/auth/*", "/valid/*/*", "/nftItem/*", "/nftItem", "/nftItem/*/*", "/item", "/item/*", "/myPage/*").permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
