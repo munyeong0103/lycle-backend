@@ -27,7 +27,7 @@ public class MyPageController {
     @GetMapping("/{member_id}")
     public ResponseEntity findNftItem(@RequestHeader("Authorization") String accessToken,
                                       @PathVariable("member_id") Long myPageMemberId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findMyPage(myPageMemberId, memberId));
     }
 
@@ -35,7 +35,7 @@ public class MyPageController {
     public ResponseEntity putNftItem(@RequestHeader("Authorization") String accessToken,
                                      @RequestBody PutMyPageDto putMyPageDto,
                                      @PathVariable("member_id") Long myPageMemberId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         memberService.putMyPage(putMyPageDto, memberId, myPageMemberId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
