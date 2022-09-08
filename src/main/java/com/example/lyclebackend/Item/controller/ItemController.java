@@ -42,14 +42,14 @@ public class ItemController {
     @GetMapping("/{item_id}")
     public ResponseEntity findNftItem(@RequestHeader("Authorization") String accessToken,
                                       @PathVariable("item_id") Long itemId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         return ResponseEntity.status(HttpStatus.OK).body(itemService.findItem(itemId, memberId));
     }
 
     @PostMapping("")
     public ResponseEntity postNftItem(@RequestHeader("Authorization") String accessToken,
                                       @RequestBody PostItemDto postItemDto) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         itemService.postItem(postItemDto, memberId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -59,7 +59,7 @@ public class ItemController {
     public ResponseEntity putNftItem(@RequestHeader("Authorization") String accessToken,
                                      @RequestBody PutItemDto putItemDto,
                                      @PathVariable("item_id") Long itemId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         itemService.putItem(putItemDto, memberId, itemId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);

@@ -27,7 +27,7 @@ public class NftItemLikeController {
     public ResponseEntity likeNftItem(@RequestHeader("Authorization") String accessToken,
                                       @PathVariable("nft_item_id") Long nftItemId) {
 
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         nftItemLikeService.postNftItemLike(nftItemId, memberId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
