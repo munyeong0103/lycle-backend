@@ -1,7 +1,5 @@
 package com.example.lyclebackend.Nft.repository;
 
-import com.example.lyclebackend.Member.entity.QMember;
-import com.example.lyclebackend.Nft.entity.QNftItem;
 import com.example.lyclebackend.Nft.entity.QNftItemLike;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
