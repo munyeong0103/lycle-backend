@@ -34,13 +34,13 @@ public class NftItemController {
     @GetMapping("/{nft_item_id}")
     public ResponseEntity findNftItem(@RequestHeader("Authorization") String accessToken,
                                       @PathVariable("nft_item_id") Long nftItemId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         return ResponseEntity.status(HttpStatus.OK).body(nftItemService.findNftItem(nftItemId, memberId));
     }
 
     @GetMapping("/post")
     public ResponseEntity findPostInfo(@RequestHeader("Authorization") String accessToken) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         return ResponseEntity.status(HttpStatus.OK).body(nftItemService.findPostInfo(memberId));
     }
 
@@ -48,7 +48,7 @@ public class NftItemController {
     @PostMapping("")
     public ResponseEntity postNftItem(@RequestHeader("Authorization") String accessToken,
                                       @RequestBody PostNftItemDto postNftItemDto) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         nftItemService.postNftItem(postNftItemDto, memberId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -58,7 +58,7 @@ public class NftItemController {
     public ResponseEntity putNftItem(@RequestHeader("Authorization") String accessToken,
                                      @RequestBody PutNftItemDto putNftItemDto,
                                      @PathVariable("nft_item_id") Long nftItemId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         nftItemService.putNftItem(putNftItemDto, memberId, nftItemId);
 
         ResultDto result = new ResultDto(true);
@@ -68,7 +68,7 @@ public class NftItemController {
     @DeleteMapping("/{nft_item_id}")
     public ResponseEntity deleteNftItem(@RequestHeader("Authorization") String accessToken,
                                      @PathVariable("nft_item_id") Long nftItemId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         nftItemService.deleteNftItem(memberId, nftItemId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);

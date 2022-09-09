@@ -37,9 +37,6 @@ public class NftItem extends BaseTimeEntity {
     @Column(name="view_cnt")
     private Integer viewCnt;
 
-    @Column(name="nft_id")
-    private Long nftId;
-
     @ManyToOne
     @JoinColumn(name = "seller_id", foreignKey = @ForeignKey(name = "FK_member_nftitem_seller"), insertable = false , updatable = false)
     private Member seller;
