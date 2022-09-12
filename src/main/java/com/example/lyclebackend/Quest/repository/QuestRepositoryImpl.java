@@ -1,6 +1,5 @@
 package com.example.lyclebackend.Quest.repository;
 
-import com.example.lyclebackend.Member.entity.QMember;
 import com.example.lyclebackend.Quest.dto.FindQuestListDto;
 import com.example.lyclebackend.Quest.entity.QQuest;
 import com.querydsl.core.types.Projections;
@@ -22,7 +21,7 @@ public class QuestRepositoryImpl implements CustomQuestRepository{
     @Override
     public List<FindQuestListDto> findQuestList(String category) {
         return queryFactory
-                .select(Projections.bean(FindQuestListDto.class, q.questId, q.category, q.level, q.needToken))
+                .select(Projections.bean(FindQuestListDto.class, q.questId, q.category, q.level, q.needToken, q.rewardToken, q.startDate, q.finishDate, q.goal, q.times, q.nftNeed))
                 .from(q)
                 .where(q.category.eq(category))
                 .fetch();
