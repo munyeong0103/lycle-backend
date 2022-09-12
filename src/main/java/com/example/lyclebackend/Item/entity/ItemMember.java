@@ -2,9 +2,7 @@ package com.example.lyclebackend.Item.entity;
 
 import com.example.lyclebackend.Member.entity.Member;
 import com.example.lyclebackend.converter.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,8 @@ import javax.persistence.*;
 @Getter
 @Table(name="item_member")
 @Entity
+@AllArgsConstructor
+@Builder
 public class ItemMember extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,8 @@ public class ItemMember extends BaseTimeEntity{
     private Integer count;
 
     @Column(name="status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
 
     @ManyToOne
     @JoinColumn(name = "member_id", foreignKey = @ForeignKey(name = "FK_member_itemmember"), insertable = false , updatable = false)
@@ -31,4 +32,10 @@ public class ItemMember extends BaseTimeEntity{
     @ManyToOne
     @JoinColumn(name = "item_id", foreignKey = @ForeignKey(name = "FK_item_itemmember"), insertable = false , updatable = false)
     private Item item;
+
+    @Column(name = "member_id")
+    private Long memberId;
+
+    @Column(name = "item_id")
+    private Long itemId;
 }

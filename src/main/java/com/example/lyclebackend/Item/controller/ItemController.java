@@ -1,6 +1,7 @@
 package com.example.lyclebackend.Item.controller;
 
 import com.example.lyclebackend.Item.dto.PostItemDto;
+import com.example.lyclebackend.Item.dto.PostItemMemberDto;
 import com.example.lyclebackend.Item.dto.PutItemDto;
 import com.example.lyclebackend.Item.service.ItemService;
 import com.example.lyclebackend.Member.dto.ResultDto;
@@ -70,6 +71,16 @@ public class ItemController {
                                         @PathVariable("item_id") Long itemId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
         itemService.deleteItem(memberId, itemId);
+        ResultDto result = new ResultDto(true);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @PostMapping("/{item_id}/buy")
+    public ResponseEntity buyNftItem(@RequestHeader("Authorization") String accessToken,
+                                     @PathVariable("item_id") Long itemId,
+                                     @RequestBody PostItemMemberDto postItemMemberDto) {
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+        itemService.buyItem(postItemMemberDto, itemId, memberId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
