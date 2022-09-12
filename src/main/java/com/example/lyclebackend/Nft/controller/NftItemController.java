@@ -74,11 +74,20 @@ public class NftItemController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @PostMapping("/{nft_item_id}/buy")
+    @GetMapping("/{nft_item_id}/buy")
     public ResponseEntity buyNftItem(@RequestHeader("Authorization") String accessToken,
                                      @PathVariable("nft_item_id") Long nftItemId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         return ResponseEntity.status(HttpStatus.OK).body(nftItemService.buyNftItem(nftItemId, memberId));
+    }
+
+    @PostMapping("/{nft_item_id}/buy")
+    public ResponseEntity buyNftItemFix(@RequestHeader("Authorization") String accessToken,
+                                     @PathVariable("nft_item_id") Long nftItemId) {
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+        nftItemService.buyNftItemFix(nftItemId, memberId);
+        ResultDto result = new ResultDto(true);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

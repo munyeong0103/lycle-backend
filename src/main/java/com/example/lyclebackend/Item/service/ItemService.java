@@ -1,10 +1,10 @@
 package com.example.lyclebackend.Item.service;
 
-import com.example.lyclebackend.Item.dto.FindItemDto;
-import com.example.lyclebackend.Item.dto.ItemListDto;
-import com.example.lyclebackend.Item.dto.PostItemDto;
-import com.example.lyclebackend.Item.dto.PutItemDto;
+import com.example.lyclebackend.Item.dto.*;
 import com.example.lyclebackend.Item.entity.Item;
+import com.example.lyclebackend.Item.entity.ItemMember;
+import com.example.lyclebackend.Item.entity.ItemStatus;
+import com.example.lyclebackend.Item.repository.ItemMemberRepository;
 import com.example.lyclebackend.Item.repository.ItemRepository;
 import com.example.lyclebackend.Nft.entity.NftItem;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final ItemMemberRepository itemMemberRepository;
 
     @Transactional
     public ItemListDto findList(String keyword, String sort, Pageable pageable) {
@@ -35,6 +36,8 @@ public class ItemService {
     @Transactional
     public FindItemDto findItem(Long itemId, Long memberId) {
         FindItemDto findItemDto = itemRepository.findItemBy(itemId, memberId);
+        Item item = itemRepository.findByItemId(itemId);
+        item.updateViweCnt();
         return findItemDto;
     }
 
@@ -66,6 +69,16 @@ public class ItemService {
         } else {
             return false;
         }
+    }
+
+    @Transactional
+    public boolean buyItem(PostItemMemberDto postItemMemberDto, Long itemId, Long memberId) {
+        postItemMemberDto.setItemId(itemId);
+        postItemMemberDto.setMemberId(memberId);
+        postItemMemberDto.setStatus(ItemStatus.shipping);
+        ItemMember itemMember = postItemMemberDto.toEntity();
+        itemMemberRepository.save(itemMember);
+        return true;
     }
 
 }
