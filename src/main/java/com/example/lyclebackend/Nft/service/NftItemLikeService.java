@@ -2,11 +2,8 @@ package com.example.lyclebackend.Nft.service;
 
 
 import com.example.lyclebackend.Nft.dto.NftItemLikeDto;
-import com.example.lyclebackend.Nft.dto.PostNftItemDto;
-import com.example.lyclebackend.Nft.entity.NftItem;
 import com.example.lyclebackend.Nft.entity.NftItemLike;
 import com.example.lyclebackend.Nft.repository.NftItemLikeRepository;
-import com.example.lyclebackend.Nft.repository.NftItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

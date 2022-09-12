@@ -5,6 +5,8 @@ import com.example.lyclebackend.Item.entity.ItemMember;
 import com.example.lyclebackend.Member.dto.PutMyPageDto;
 import com.example.lyclebackend.Nft.entity.NftItem;
 import com.example.lyclebackend.Nft.entity.NftItemLike;
+import com.example.lyclebackend.Quest.entity.CurrentQuest;
+import com.example.lyclebackend.Quest.entity.SuccessQuest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -58,6 +60,12 @@ public class Member {
 
     @OneToMany(mappedBy = "buyerId", fetch = FetchType.LAZY)
     private List<NftItem> nftItemBuyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<SuccessQuest> successQuestList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<CurrentQuest> currentQuestList = new ArrayList<>();
 
     public void update(PutMyPageDto putMyPageDto) {
         this.nickname = putMyPageDto.getNickname();

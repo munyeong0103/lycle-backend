@@ -60,6 +60,7 @@ public class NftItemController {
                                      @PathVariable("nft_item_id") Long nftItemId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         nftItemService.putNftItem(putNftItemDto, memberId, nftItemId);
+
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

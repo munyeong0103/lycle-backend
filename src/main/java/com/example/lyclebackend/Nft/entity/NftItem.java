@@ -19,7 +19,7 @@ import java.util.List;
 public class NftItem extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="nft_itme_id")
+    @Column(name="nft_item_id")
     private Long nftItemId;
 
     @Column(name="title")
