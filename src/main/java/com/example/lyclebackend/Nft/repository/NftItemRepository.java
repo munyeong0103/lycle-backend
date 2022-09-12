@@ -10,5 +10,4 @@ public interface NftItemRepository extends JpaRepository<NftItem, Long>, CustomN
     NftItem findByNftItemId(Long nftItemId);
 
     void deleteByNftItemId(Long nftItemId);
-
 }

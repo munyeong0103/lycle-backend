@@ -2,6 +2,7 @@ package com.example.lyclebackend.Nft.repository;
 
 
 import com.example.lyclebackend.Member.entity.QMember;
+import com.example.lyclebackend.Nft.dto.BuyNftItemDto;
 import com.example.lyclebackend.Nft.dto.FindNftItemDto;
 import com.example.lyclebackend.Nft.dto.NftItemListInDto;
 import com.example.lyclebackend.Nft.entity.QNftItem;
@@ -52,7 +53,7 @@ public class NftItemRepositoryImpl implements CustomNftItemRepository {
     public List<NftItemListInDto> findListBy(String keyword, String sort, Pageable pageable) {
 
         return queryFactory
-                .select(Projections.bean(NftItemListInDto.class, m.memberId, m.nickname, n.nftItemId, n.nftItemImg, n.title, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.createdDate))
+                .select(Projections.bean(NftItemListInDto.class, m.memberId, m.nickname, m.profileImg, n.nftItemId, n.nftItemImg, n.title, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.createdDate))
                 .from(n)
                 .leftJoin(n.seller, m)
                 .where(searchKeyword(keyword))
@@ -70,6 +71,16 @@ public class NftItemRepositoryImpl implements CustomNftItemRepository {
                 .where(l.member.memberId.eq(memberId), l.nftItem.nftItemId.eq(nftItemId))
                 .fetchOne();
         return nftItemLikeId != null;
+    }
+
+    @Override
+    public BuyNftItemDto buyNftItem(Long nftItemId) {
+        return queryFactory
+                .select(Projections.bean(BuyNftItemDto.class, n.nftItemImg, m.walletAddress.as("sellerWalletAddress")))
+                .from(n)
+                .leftJoin(n.seller, m)
+                .where(n.nftItemId.eq(nftItemId))
+                .fetchOne();
     }
 
     @Override
