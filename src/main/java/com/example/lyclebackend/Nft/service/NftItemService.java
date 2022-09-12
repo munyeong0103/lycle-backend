@@ -96,4 +96,11 @@ public class NftItemService {
             return false;
         }
     }
+
+    @Transactional
+    public BuyNftItemDto buyNftItem(Long nftItemId, Long memberId) {
+        BuyNftItemDto buyNftItemDto = nftItemRepository.buyNftItem(nftItemId);
+        buyNftItemDto.setBuyerWalletAddress(memberRepository.findByMemberId(memberId).getWalletAddress());
+        return buyNftItemDto;
+    }
 }

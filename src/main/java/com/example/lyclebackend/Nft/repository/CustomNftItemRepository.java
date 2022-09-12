@@ -1,5 +1,6 @@
 package com.example.lyclebackend.Nft.repository;
 
+import com.example.lyclebackend.Nft.dto.BuyNftItemDto;
 import com.example.lyclebackend.Nft.dto.FindNftItemDto;
 import com.example.lyclebackend.Nft.dto.NftItemListInDto;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +13,6 @@ public interface CustomNftItemRepository {
     FindNftItemDto findNftItemBy(Long nftItemId, Long memberId);
 
     Boolean findNftItemLikeBy(Long nftItemId, Long memberId);
+
+    BuyNftItemDto buyNftItem(Long nftItemId);
 }
