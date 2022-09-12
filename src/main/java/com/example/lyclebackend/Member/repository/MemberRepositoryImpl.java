@@ -58,7 +58,7 @@ public class MemberRepositoryImpl implements CustomMemberRepository {
     public List<NftItemListInDto> findListBy(String keyword, String sort, Pageable pageable, Long memberId) {
 
         return queryFactory
-                .select(Projections.bean(NftItemListInDto.class, m.memberId, m.nickname, n.nftItemId, n.nftItemImg, n.title, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.createdDate))
+                .select(Projections.bean(NftItemListInDto.class, m.memberId, m.nickname, m.profileImg, n.nftItemId, n.nftItemImg, n.title, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.createdDate))
                 .from(n)
                 .leftJoin(n.seller, m)
                 .where(n.nftItemLikeList.any().memberId.eq(memberId).and(searchKeyword(keyword)))
