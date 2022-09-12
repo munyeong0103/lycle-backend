@@ -43,4 +43,8 @@ public class Item extends BaseTimeEntity {
         this.content = putItemDto.getContent();
         this.price = putItemDto.getPrice();
     }
+
+    public void updateViweCnt() {
+        this.viewCnt = this.viewCnt + 1;
+    }
 }

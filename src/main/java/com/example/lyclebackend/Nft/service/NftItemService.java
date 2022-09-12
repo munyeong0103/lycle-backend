@@ -4,6 +4,7 @@ import com.example.lyclebackend.Member.entity.Member;
 import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Nft.dto.*;
 import com.example.lyclebackend.Nft.entity.NftItem;
+import com.example.lyclebackend.Nft.entity.NftItemStatus;
 import com.example.lyclebackend.Nft.repository.NftItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,8 @@ public class NftItemService {
     public FindNftItemDto findNftItem(Long nftItemId, Long memberId) {
         FindNftItemDto findNftItemDto = nftItemRepository.findNftItemBy(nftItemId, memberId);
         findNftItemDto.setIsLike(nftItemRepository.findNftItemLikeBy(nftItemId, memberId));
+        NftItem nftItem = nftItemRepository.findByNftItemId(nftItemId);
+        nftItem.updateViweCnt();
         return findNftItemDto;
     }
 
@@ -70,6 +73,7 @@ public class NftItemService {
     public boolean postNftItem(PostNftItemDto postNftItemDto, Long memberId) {
         postNftItemDto.setViewCnt(0);
         postNftItemDto.setSellerId(memberId);
+        postNftItemDto.setStatus(NftItemStatus.sale);
         NftItem nftItem = postNftItemDto.toEntity();
         nftItemRepository.save(nftItem);
         return true;
@@ -99,8 +103,21 @@ public class NftItemService {
 
     @Transactional
     public BuyNftItemDto buyNftItem(Long nftItemId, Long memberId) {
-        BuyNftItemDto buyNftItemDto = nftItemRepository.buyNftItem(nftItemId);
-        buyNftItemDto.setBuyerWalletAddress(memberRepository.findByMemberId(memberId).getWalletAddress());
+        NftItem nftItem = nftItemRepository.findByNftItemId(nftItemId);
+        BuyNftItemDto buyNftItemDto = new BuyNftItemDto();
+        if(nftItem.getStatus() == NftItemStatus.sale) {
+            buyNftItemDto.setNftItemImg(nftItem.getNftItemImg());
+            buyNftItemDto.setSellerWalletAddress(nftItem.getSeller().getWalletAddress());
+            buyNftItemDto.setBuyerWalletAddress(memberRepository.findByMemberId(memberId).getWalletAddress());
+            nftItem.updateStatus(NftItemStatus.paying);
+        }
         return buyNftItemDto;
+    }
+
+    @Transactional
+    public boolean buyNftItemFix(Long nftItemId, Long memberId) {
+        NftItem nftItem = nftItemRepository.findByNftItemId(nftItemId);
+        nftItem.updatePaying(NftItemStatus.soldOut, memberId);
+        return true;
     }
 }

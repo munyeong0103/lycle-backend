@@ -2,6 +2,7 @@ package com.example.lyclebackend.Nft.dto;
 
 import com.example.lyclebackend.Member.entity.Member;
 import com.example.lyclebackend.Nft.entity.NftItem;
+import com.example.lyclebackend.Nft.entity.NftItemStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,8 @@ public class PostNftItemDto {
 
     private Long sellerId;
 
+    private NftItemStatus status;
+
     public NftItem toEntity(){
         NftItem build = NftItem.builder()
                 .nftItemImg(nftItemImg)
@@ -33,6 +36,7 @@ public class PostNftItemDto {
                 .content(content)
                 .viewCnt(viewCnt)
                 .sellerId(sellerId)
+                .status(status)
                 .build();
         return build;
     }

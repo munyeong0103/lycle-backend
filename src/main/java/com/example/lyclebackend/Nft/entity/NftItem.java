@@ -51,6 +51,10 @@ public class NftItem extends BaseTimeEntity {
     @Column(name = "buyer_id")
     private Long buyerId;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private NftItemStatus status;
+
     @OneToMany(mappedBy = "nftItem", fetch = FetchType.LAZY)
     private List<NftItemLike> nftItemLikeList = new ArrayList<>();
 
@@ -58,5 +62,18 @@ public class NftItem extends BaseTimeEntity {
         this.title = putNftItemDto.getTitle();
         this.content = putNftItemDto.getContent();
         this.price = putNftItemDto.getPrice();
+    }
+
+    public void updateStatus(NftItemStatus nftItemStatus) {
+        this.status = nftItemStatus;
+    }
+
+    public void updatePaying(NftItemStatus nftItemStatus, Long buyerId) {
+        this.status = nftItemStatus;
+        this.buyerId = buyerId;
+    }
+
+    public void updateViweCnt() {
+        this.viewCnt = this.viewCnt + 1;
     }
 }
