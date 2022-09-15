@@ -2,7 +2,6 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://lycle-rds.c9qq9ay6jtoe.ap-northeast-2.rds.amazonaws.com:3306/lycle_rds?serverTimezone=Asia/Seoul
-#    url: jdbc:mysql://localhost:3306/lycle_backend?serverTimezone=Asia/Seoul
     username: lycle
     password: lycle2022-2
   jpa:
