@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.swing.text.StyledEditorKit;
+
 @Getter
 @Setter
 @ToString
@@ -23,6 +25,8 @@ public class PostItemDto {
 
     private Integer viewCnt;
 
+    private Boolean isDelete;
+
     public Item toEntity(){
         Item build = Item.builder()
                 .itemImg(itemImg)
@@ -30,6 +34,7 @@ public class PostItemDto {
                 .price(price)
                 .content(content)
                 .viewCnt(viewCnt)
+                .isDelete(isDelete)
                 .build();
         return build;
     }
