@@ -55,6 +55,9 @@ public class NftItem extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private NftItemStatus status;
 
+    @Column(name = "is_delete")
+    private Boolean isDelete;
+
     @OneToMany(mappedBy = "nftItem", fetch = FetchType.LAZY)
     private List<NftItemLike> nftItemLikeList = new ArrayList<>();
 
@@ -71,6 +74,10 @@ public class NftItem extends BaseTimeEntity {
     public void updatePaying(NftItemStatus nftItemStatus, Long buyerId) {
         this.status = nftItemStatus;
         this.buyerId = buyerId;
+    }
+
+    public void delete(){
+        this.isDelete = Boolean.TRUE;
     }
 
     public void updateViweCnt() {
