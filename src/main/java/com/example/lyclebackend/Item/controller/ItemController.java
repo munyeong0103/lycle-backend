@@ -69,7 +69,7 @@ public class ItemController {
     @DeleteMapping("/{item_id}")
     public ResponseEntity deleteNftItem(@RequestHeader("Authorization") String accessToken,
                                         @PathVariable("item_id") Long itemId) {
-        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken));
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         itemService.deleteItem(memberId, itemId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);

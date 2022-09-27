@@ -36,6 +36,9 @@ public class ItemService {
     @Transactional
     public FindItemDto findItem(Long itemId, Long memberId) {
         FindItemDto findItemDto = itemRepository.findItemBy(itemId, memberId);
+        if (findItemDto == null){
+            return findItemDto;
+        }
         Item item = itemRepository.findByItemId(itemId);
         item.updateViweCnt();
         return findItemDto;
@@ -44,6 +47,7 @@ public class ItemService {
     @Transactional
     public boolean postItem(PostItemDto postItemDto, Long memberId) {
         postItemDto.setViewCnt(0);
+        postItemDto.setIsDelete(Boolean.FALSE);
         Item item = postItemDto.toEntity();
         itemRepository.save(item);
         return true;
@@ -64,7 +68,7 @@ public class ItemService {
     public boolean deleteItem(Long memberId, Long itemId) {
         Item item = itemRepository.findByItemId(itemId);
         if (1 == memberId) {
-            itemRepository.deleteByItemId(item.getItemId());
+            item.delete();
             return true;
         } else {
             return false;
