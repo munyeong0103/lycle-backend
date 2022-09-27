@@ -51,7 +51,7 @@ public class ItemRepositoryImpl implements CustomItemRepository{
         return queryFactory
                 .select(Projections.bean(ItemListInDto.class, i.itemId, i.itemImg, i.title, i.price, i.viewCnt, i.createdDate))
                 .from(i)
-                .where(searchKeyword(keyword))
+                .where(searchKeyword(keyword), i.isDelete.eq(Boolean.FALSE))
                 .orderBy(sortCondition(sort))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -63,7 +63,7 @@ public class ItemRepositoryImpl implements CustomItemRepository{
         return queryFactory
                 .select(Projections.bean(FindItemDto.class, i.itemId, i.itemImg, i.title, i.createdDate, i.price, i.viewCnt, i.content))
                 .from(i)
-                .where(i.itemId.eq(itemId))
+                .where(i.itemId.eq(itemId), i.isDelete.eq(Boolean.FALSE))
                 .fetchOne();
     }
 
