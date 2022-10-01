@@ -1,5 +1,6 @@
 package com.example.lyclebackend.Nft.dto;
 
+import com.example.lyclebackend.Nft.entity.NftItemStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,4 +43,6 @@ public class FindNftItemDto {
     private Boolean isLike;
 
     private Boolean isDelete;
+
+    private NftItemStatus status;
 }
