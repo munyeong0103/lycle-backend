@@ -1,10 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lycle_backend?serverTimezone=Asia/Seoul
-    #    url: jdbc:mysql://lycle-rds.c9qq9ay6jtoe.ap-northeast-2.rds.amazonaws.com:3306/lycle_rds?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/lycle_rds?serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://lycle-rds.c9qq9ay6jtoe.ap-northeast-2.rds.amazonaws.com:3306/lycle_rds?serverTimezone=Asia/Seoul
     username: root
-    password: my1231
+    password: 9520awdr0259!
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,5 +26,3 @@ spring:
           writetimeout: 5000
 jwt:
   secret: asdfassd
-server:
-  port: 8081

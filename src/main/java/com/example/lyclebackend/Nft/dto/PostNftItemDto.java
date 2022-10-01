@@ -28,6 +28,8 @@ public class PostNftItemDto {
 
     private NftItemStatus status;
 
+    private Boolean isDelete;
+
     public NftItem toEntity(){
         NftItem build = NftItem.builder()
                 .nftItemImg(nftItemImg)
@@ -37,6 +39,7 @@ public class PostNftItemDto {
                 .viewCnt(viewCnt)
                 .sellerId(sellerId)
                 .status(status)
+                .isDelete(isDelete)
                 .build();
         return build;
     }

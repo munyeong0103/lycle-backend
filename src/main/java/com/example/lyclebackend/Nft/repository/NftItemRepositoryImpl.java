@@ -53,10 +53,10 @@ public class NftItemRepositoryImpl implements CustomNftItemRepository {
     public List<NftItemListInDto> findListBy(String keyword, String sort, Pageable pageable) {
 
         return queryFactory
-                .select(Projections.bean(NftItemListInDto.class, m.memberId, m.nickname, m.profileImg, n.nftItemId, n.nftItemImg, n.title, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.createdDate))
+                .select(Projections.bean(NftItemListInDto.class, m.memberId, m.nickname, m.profileImg, n.nftItemId, n.nftItemImg, n.title, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.createdDate, n.status))
                 .from(n)
                 .leftJoin(n.seller, m)
-                .where(searchKeyword(keyword))
+                .where(searchKeyword(keyword), n.isDelete.eq(Boolean.FALSE))
                 .orderBy(sortCondition(sort))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -86,7 +86,7 @@ public class NftItemRepositoryImpl implements CustomNftItemRepository {
     @Override
     public FindNftItemDto findNftItemBy(Long nftItemId, Long memberId) {
         return queryFactory
-                .select(Projections.bean(FindNftItemDto.class, n.nftItemId, n.nftItemImg, m.profileImg, m.nickname, m.profileImg, n.title, n.createdDate, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.content, n.seller.memberId.as("sellerId"), n.seller.memberId.eq(m.memberId).as("isOwner")))
+                .select(Projections.bean(FindNftItemDto.class, n.nftItemId, n.nftItemImg, m.profileImg, m.nickname, m.profileImg, n.title, n.createdDate, n.price, n.viewCnt, n.nftItemLikeList.size().as("likeCnt"), n.content, n.seller.memberId.as("sellerId"), n.seller.memberId.eq(m.memberId).as("isOwner"), n.isDelete, n.status))
                 .from(n)
                 .leftJoin(n.seller, m)
                 .where(n.nftItemId.eq(nftItemId))

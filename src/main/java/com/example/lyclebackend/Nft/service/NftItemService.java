@@ -39,6 +39,10 @@ public class NftItemService {
     @Transactional
     public FindNftItemDto findNftItem(Long nftItemId, Long memberId) {
         FindNftItemDto findNftItemDto = nftItemRepository.findNftItemBy(nftItemId, memberId);
+        if (findNftItemDto.getIsDelete() == Boolean.TRUE){
+            FindNftItemDto findNftItemDto1 = new FindNftItemDto();
+            return findNftItemDto1;
+        }
         findNftItemDto.setIsLike(nftItemRepository.findNftItemLikeBy(nftItemId, memberId));
         NftItem nftItem = nftItemRepository.findByNftItemId(nftItemId);
         nftItem.updateViweCnt();
@@ -73,6 +77,7 @@ public class NftItemService {
     public boolean postNftItem(PostNftItemDto postNftItemDto, Long memberId) {
         postNftItemDto.setViewCnt(0);
         postNftItemDto.setSellerId(memberId);
+        postNftItemDto.setIsDelete(Boolean.FALSE);
         postNftItemDto.setStatus(NftItemStatus.sale);
         NftItem nftItem = postNftItemDto.toEntity();
         nftItemRepository.save(nftItem);
@@ -94,7 +99,7 @@ public class NftItemService {
     public boolean deleteNftItem(Long memberId, Long nftItemId) {
         NftItem nftItem = nftItemRepository.findByNftItemId(nftItemId);
         if (nftItem.getSellerId() == memberId) {
-            nftItemRepository.deleteByNftItemId(nftItem.getNftItemId());
+            nftItem.delete();
             return true;
         } else {
             return false;

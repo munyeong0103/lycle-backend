@@ -35,6 +35,9 @@ public class Item extends BaseTimeEntity {
     @Column(name="view_cnt")
     private Integer viewCnt;
 
+    @Column(name = "is_delete")
+    private Boolean isDelete;
+
     @OneToMany(mappedBy = "item")
     private List<ItemMember> itemMemberList = new ArrayList<>();
 
@@ -46,5 +49,9 @@ public class Item extends BaseTimeEntity {
 
     public void updateViweCnt() {
         this.viewCnt = this.viewCnt + 1;
+    }
+
+    public void delete(){
+        this.isDelete = Boolean.TRUE;
     }
 }
