@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,12 +22,27 @@ public class SuccessQuest {
     @Column(name="success_quest_id")
     private Long successQuestId;
 
+    private String category;
+
+    private Integer level;
+
+    @Column(name = "need_nft")
+    private String needNft;
+
+    @Column(name = "need_time")
+    private Integer needTime;
+
+    @Column(name = "need_token")
+    private Integer needToken;
+
+    @Column(name = "reward_token")
+    private Integer rewardToken;
+
+    private Integer goal;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "expired_date")
     private LocalDateTime expiredDate;
-
-    @Column(name = "nft_need")
-    private String nftNeed;
 
     @ManyToOne
     @JoinColumn(name = "member_id", foreignKey = @ForeignKey(name = "FK_member_successquest"), insertable = false , updatable = false)

@@ -17,6 +17,10 @@ public class PutQuestListDto {
 
     private Integer level;
 
+    private String needNft;
+
+    private Integer needTime;
+
     private Integer needToken;
 
     private Integer rewardToken;
@@ -28,7 +32,4 @@ public class PutQuestListDto {
     private Integer goal;
 
     private Integer times;
-
-    private String nftNeed;
-
 }
