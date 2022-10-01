@@ -30,29 +30,27 @@ public class QuestController {
     public ResponseEntity findList(@RequestHeader("Authorization") String accessToken,
                                    @RequestParam(name = "category", required = false, defaultValue = "") String category) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        log.info(String.valueOf(memberId));
-        return ResponseEntity.status(HttpStatus.OK).body(questService.findList(category));
+        //log.info(String.valueOf(memberId));
+        return ResponseEntity.status(HttpStatus.OK).body(questService.findList(category, memberId));
     }
 
-    @PutMapping("")
+    @PutMapping("") //category, level 둘 다 일치해야 수정할 수 있게 변경(quest_id 코드 삭제)
     public ResponseEntity putQuest(@RequestHeader("Authorization") String accessToken,
                                    @RequestBody PutQuestListDto putQuestListDto,
                                    @RequestParam(name = "quest_id", required = false, defaultValue = "") Long questId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        log.info(String.valueOf(memberId));
 
-        return ResponseEntity.status(HttpStatus.OK).body(questService.putQuestList(putQuestListDto, questId));
+        return ResponseEntity.status(HttpStatus.OK).body(questService.putQuestList(putQuestListDto, questId, memberId));
     }
 
 
-    @DeleteMapping("")
+    @DeleteMapping("") //category, level 둘 다 일치해야 수정할 수 있게 변경(quest_id 코드 삭제)
     public ResponseEntity deleteQuest(@RequestHeader("Authorization") String accessToken,
                                       @RequestBody DeleteQuestListDto deleteQuestListDto,
                                       @RequestParam("quest_id") Long questId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        log.info(String.valueOf(memberId));
 
-        return ResponseEntity.status(HttpStatus.OK).body(questService.deleteQuest(questId));
+        return ResponseEntity.status(HttpStatus.OK).body(questService.deleteQuest(questId, memberId));
     }
 
 

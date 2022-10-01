@@ -1,5 +1,6 @@
 package com.example.lyclebackend.Quest.repository;
 
+import com.example.lyclebackend.Member.entity.QMember;
 import com.example.lyclebackend.Quest.dto.FindQuestListDto;
 import com.example.lyclebackend.Quest.entity.QQuest;
 import com.querydsl.core.types.Projections;
@@ -21,16 +22,16 @@ public class QuestRepositoryImpl implements CustomQuestRepository{
     @Override
     public List<FindQuestListDto> findQuestList(String category) {
         return queryFactory
-                .select(Projections.bean(FindQuestListDto.class, q.questId, q.category, q.level, q.needToken, q.rewardToken, q.startDate, q.finishDate, q.goal, q.times, q.nftNeed))
+                .select(Projections.bean(FindQuestListDto.class, q.questId, q.category, q.level, q.needNft, q.needTime, q.needToken, q.rewardToken, q.startDate, q.finishDate, q.goal, q.times))
                 .from(q)
                 .where(q.category.eq(category))
                 .fetch();
     }
 
     @Override
-    public FindQuestListDto findQuestListBy(Long questId) {
+    public FindQuestListDto findQuestListBy(Long questId, Long memberId) {
         return queryFactory
-                .select(Projections.bean(FindQuestListDto.class, q.questId, q.category, q.level, q.needToken, q.rewardToken, q.startDate, q.finishDate, q.goal, q.times, q.nftNeed))
+                .select(Projections.bean(FindQuestListDto.class, q.questId, q.category, q.level, q.needNft, q.needTime, q.needToken, q.rewardToken, q.startDate, q.finishDate, q.goal, q.times))
                 .from(q)
                 .where(q.questId.eq(questId))
                 .fetchOne();

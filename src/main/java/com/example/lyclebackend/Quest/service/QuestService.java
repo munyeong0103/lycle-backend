@@ -1,5 +1,6 @@
 package com.example.lyclebackend.Quest.service;
 
+import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Nft.dto.NftItemListDto;
 import com.example.lyclebackend.Nft.dto.PutNftItemDto;
 import com.example.lyclebackend.Nft.entity.NftItem;
@@ -23,37 +24,55 @@ import java.util.List;
 public class QuestService {
     private final QuestRepository questRepository;
 
+    private final MemberRepository memberRepository;
+
     @Transactional
-    public List<FindQuestListDto> findList(String category) {
+    public List<FindQuestListDto> findList(String category, Long memberId) {
         List<FindQuestListDto> findQuestListDtoList = questRepository.findQuestList(category);
+
+        memberRepository.findByMemberId(memberId);
 
         return findQuestListDtoList;
     }
 
     @Transactional
-    public boolean putQuestList(PutQuestListDto putQuestListDto, Long questId) {
+    public boolean putQuestList(PutQuestListDto putQuestListDto, Long questId, Long memberId) {
 
         Quest quest = questRepository.findByQuestId(questId);
-        if (quest.getQuestId() == questId) {
-            quest.update(putQuestListDto);
-            return true;
-        } else {
-            return false;
-        }
+
+        //if (memberRepository.findByMemberId(memberId).equals(memberId)){
+            if (quest.getQuestId() == questId) {
+                quest.update(putQuestListDto);
+                return true;
+            } else {
+                return false;
+            }
+        //}
+        //else {
+        //    return false;
+        //}
+
+
     }
 
 
 
     @Transactional
-    public boolean deleteQuest(Long questId) { //category, level
+    public boolean deleteQuest(Long questId, Long memberId) { //category, level
 
         Quest quest = questRepository.findByQuestId(questId);
 
-        if (quest.getQuestId() == questId) {
-            questRepository.deleteByQuestId(quest.getQuestId());
-            return true;
-        } else {
-            return false;
-        }
+        //if (memberRepository.findByMemberId(memberId).equals(memberId)){
+            if (quest.getQuestId() == questId) {
+                questRepository.deleteByQuestId(quest.getQuestId());
+                return true;
+            } else {
+                return false;
+            }
+        //}
+        //else {
+        //    return false;
+        //}
+
     }
 }
