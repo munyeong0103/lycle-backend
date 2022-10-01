@@ -26,26 +26,29 @@ public class Quest {
 
     private Integer level;
 
+    @Column(name = "need_nft")
+    private String needNft;
+
+    @Column(name = "need_time")
+    private Integer needTime;
+
     @Column(name = "need_token")
     private Integer needToken;
 
     @Column(name = "reward_token")
     private Integer rewardToken;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "finish_date")
     private LocalDateTime finishDate;
 
     private Integer goal;
 
     private Integer times;
-
-    @Column(name = "nft_need")
-    private String nftNeed;
 
     @OneToMany(mappedBy = "quest", fetch = FetchType.LAZY)
     private List<SuccessQuest> successQuestList = new ArrayList<>();
@@ -56,12 +59,13 @@ public class Quest {
     public void update(PutQuestListDto putQuestListDto) {
         this.category = putQuestListDto.getCategory();
         this.level = putQuestListDto.getLevel();
+        this.needNft = putQuestListDto.getNeedNft();
+        this.needTime = putQuestListDto.getNeedTime();
         this.needToken = putQuestListDto.getNeedToken();
         this.rewardToken = putQuestListDto.getRewardToken();
         this.startDate = putQuestListDto.getStartDate();
         this.finishDate = putQuestListDto.getFinishDate();
         this.goal = putQuestListDto.getGoal();
         this.times = putQuestListDto.getTimes();
-        this.nftNeed = putQuestListDto.getNftNeed();
     }
 }
