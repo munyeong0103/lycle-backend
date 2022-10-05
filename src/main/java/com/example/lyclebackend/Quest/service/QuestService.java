@@ -2,9 +2,12 @@ package com.example.lyclebackend.Quest.service;
 
 import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Nft.dto.NftItemListDto;
+import com.example.lyclebackend.Nft.dto.PostNftItemDto;
 import com.example.lyclebackend.Nft.dto.PutNftItemDto;
 import com.example.lyclebackend.Nft.entity.NftItem;
+import com.example.lyclebackend.Nft.entity.NftItemStatus;
 import com.example.lyclebackend.Quest.dto.FindQuestListDto;
+import com.example.lyclebackend.Quest.dto.PostQuestListDto;
 import com.example.lyclebackend.Quest.dto.PutQuestListDto;
 import com.example.lyclebackend.Quest.entity.Quest;
 import com.example.lyclebackend.Quest.repository.QuestRepository;
@@ -69,10 +72,13 @@ public class QuestService {
             } else {
                 return false;
             }
-        //}
-        //else {
-        //    return false;
-        //}
+    }
 
+    @Transactional
+    public boolean postQuestList(PostQuestListDto postQuestListDto, Long memberId) {
+
+        Quest quest = postQuestListDto.toEntity();
+        //QuestRepository.save(memberId);
+        return true;
     }
 }

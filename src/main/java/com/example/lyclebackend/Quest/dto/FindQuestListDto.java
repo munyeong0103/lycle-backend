@@ -7,6 +7,7 @@ import lombok.ToString;
 import net.bytebuddy.description.field.FieldDescription;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +23,7 @@ public class FindQuestListDto {
 
     private String needNft;
 
-    private Integer needTime;
+    private Integer needTimes;
 
     private Integer needToken;
 
@@ -33,6 +34,4 @@ public class FindQuestListDto {
     private LocalDateTime finishDate;
 
     private Integer goal;
-
-    private Integer needTimes; //needTimes로 변경
 }

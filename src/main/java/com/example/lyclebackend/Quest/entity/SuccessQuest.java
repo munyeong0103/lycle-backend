@@ -29,8 +29,8 @@ public class SuccessQuest {
     @Column(name = "need_nft")
     private String needNft;
 
-    @Column(name = "need_time")
-    private Integer needTime;
+    @Column(name = "need_times")
+    private Integer needTimes;
 
     @Column(name = "need_token")
     private Integer needToken;

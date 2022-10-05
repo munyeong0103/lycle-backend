@@ -29,8 +29,8 @@ public class Quest {
     @Column(name = "need_nft")
     private String needNft;
 
-    @Column(name = "need_time")
-    private Integer needTime;
+    @Column(name = "need_times")
+    private Integer needTimes;
 
     @Column(name = "need_token")
     private Integer needToken;
@@ -53,14 +53,12 @@ public class Quest {
     @OneToMany(mappedBy = "quest", fetch = FetchType.LAZY)
     private List<SuccessQuest> successQuestList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "quest", fetch = FetchType.LAZY)
-    private List<CurrentQuest> currentQuestList = new ArrayList<>();
 
     public void update(PutQuestListDto putQuestListDto) {
         this.category = putQuestListDto.getCategory();
         this.level = putQuestListDto.getLevel();
         this.needNft = putQuestListDto.getNeedNft();
-        this.needTime = putQuestListDto.getNeedTime();
+        this.needTimes = putQuestListDto.getNeedTimes();
         this.needToken = putQuestListDto.getNeedToken();
         this.rewardToken = putQuestListDto.getRewardToken();
         this.startDate = putQuestListDto.getStartDate();
