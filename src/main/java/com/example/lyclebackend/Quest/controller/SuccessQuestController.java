@@ -2,6 +2,8 @@ package com.example.lyclebackend.Quest.controller;
 
 import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Member.util.JwtUtil;
+import com.example.lyclebackend.Quest.dto.PostQuestListDto;
+import com.example.lyclebackend.Quest.dto.PostSuccessQuestListDto;
 import com.example.lyclebackend.Quest.service.QuestService;
 import com.example.lyclebackend.Quest.service.SuccessQuestService;
 import lombok.RequiredArgsConstructor;
@@ -25,24 +27,32 @@ public class SuccessQuestController {
     private final JwtUtil jwtUtil;
 
 
-    @GetMapping("")
+    @GetMapping("/success")
     public ResponseEntity findList(@RequestHeader("Authorization") String accessToken,
                                    @RequestParam(name = "category", required = false, defaultValue = "") String category) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        log.info(String.valueOf(memberId));
+        //log.info(String.valueOf(memberId));
         return ResponseEntity.status(HttpStatus.OK).body(successQuestService.findList(category, memberId));
     }
 
-    /*
-    @GetMapping("")
+/*
+    @GetMapping("/range")
     public ResponseEntity findRangeList(@RequestHeader("Authorization") String accessToken,
-                                        @RequestParam(name = "category", required = false, defaultValue = "") String category,
                                         @RequestParam(name = "start", required = false, defaultValue = "") Long start,
                                         @RequestParam(name = "end", required = false, defaultValue = "") Long end) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        log.info(String.valueOf(memberId));
-        return ResponseEntity.status(HttpStatus.OK).body(successQuestService.findRangeList(category, start, end, memberId));
+
+        return ResponseEntity.status(HttpStatus.OK).body(successQuestService.findRangeList(start, end, memberId));
     }
 */
     //@GetMapping
+
+    @PostMapping("/success")
+    public ResponseEntity postSuccessQuest(@RequestHeader("Authorization") String accessToken,
+                                    @RequestBody PostSuccessQuestListDto postSuccessQuestListDto) {
+
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+
+        return ResponseEntity.status(HttpStatus.OK).body(successQuestService.postSuccessQuestList(postSuccessQuestListDto, memberId));
+    }
 }

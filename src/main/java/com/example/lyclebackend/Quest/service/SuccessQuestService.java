@@ -4,10 +4,9 @@ import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Nft.dto.NftItemListDto;
 import com.example.lyclebackend.Nft.dto.PutNftItemDto;
 import com.example.lyclebackend.Nft.entity.NftItem;
-import com.example.lyclebackend.Quest.dto.FindQuestListDto;
-import com.example.lyclebackend.Quest.dto.FindSuccessQuestListDto;
-import com.example.lyclebackend.Quest.dto.PutQuestListDto;
+import com.example.lyclebackend.Quest.dto.*;
 import com.example.lyclebackend.Quest.entity.Quest;
+import com.example.lyclebackend.Quest.entity.SuccessQuest;
 import com.example.lyclebackend.Quest.repository.QuestRepository;
 import com.example.lyclebackend.Quest.repository.SuccessQuestRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,15 +37,24 @@ public class SuccessQuestService {
 
         return findSuccessQuestListDtoList;
     }
+/*
+    public List<FindSuccessQuestListDto> findRangeList(Long start, Long end, Long memberId) {
 
-    public List<FindSuccessQuestListDto> findRangeList(String category, Long start, Long end, Long memberId) {
-
-
-            List<FindSuccessQuestListDto> findSuccessQuestListDtoList = successQuestRepository.findSuccessQuestList(category);
-
+        for (Long i=start; i<end; i++) {
+            SuccessQuest successQuest = successQuestRepository.findBySuccessQuestId(memberId);
+        }
         memberRepository.findByMemberId(memberId);
 
         return findSuccessQuestListDtoList;
     }
+    */
+    @Transactional
+    public boolean postSuccessQuestList(PostSuccessQuestListDto postSuccessQuestListDto, Long memberId) {
+
+        SuccessQuest successQuest = postSuccessQuestListDto.toEntity();
+        //QuestRepository.save(memberId);
+        return true;
+    }
+
 }
 

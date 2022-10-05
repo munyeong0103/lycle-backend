@@ -14,7 +14,7 @@ public class SuccessQuestRepositoryImpl implements CustomSuccessQuestRepository{
 
     private final JPAQueryFactory queryFactory;
 
-    QSuccessQuest q = new QSuccessQuest("q");
+    QSuccessQuest s = new QSuccessQuest("s");
 
     public SuccessQuestRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
@@ -23,10 +23,20 @@ public class SuccessQuestRepositoryImpl implements CustomSuccessQuestRepository{
     @Override
     public List<FindSuccessQuestListDto> findSuccessQuestList(String category) {
         return queryFactory
-                .select(Projections.bean(FindSuccessQuestListDto.class, q.successQuestId, q.category, q.level, q.needNft, q.needTime, q.needToken,
-                        q.rewardToken, q.goal, q.expiredDate, q.member.memberId))
-                .from(q)
-                .where(q.category.eq(category))
+                .select(Projections.bean(FindSuccessQuestListDto.class, s.successQuestId, s.category, s.level, s.needNft, s.needTimes, s.needToken,
+                        s.rewardToken, s.goal, s.expiredDate, s.member.memberId))
+                .from(s)
+                .where(s.category.eq(category))
+                .fetch();
+    }
+
+    @Override
+    public FindSuccessQuestListDto findSuccessQuestListBy(Long successQuestId, Long memberId) {
+        return (FindSuccessQuestListDto) queryFactory
+                .select(Projections.bean(FindSuccessQuestListDto.class, s.successQuestId, s.category, s.level, s.needNft, s.needTimes, s.needToken,
+                        s.rewardToken, s.goal, s.expiredDate, s.member.memberId))
+                .from(s)
+                .where(s.successQuestId.eq(successQuestId))
                 .fetch();
     }
 

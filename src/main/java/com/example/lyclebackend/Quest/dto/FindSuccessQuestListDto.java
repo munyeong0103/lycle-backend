@@ -23,7 +23,7 @@ public class FindSuccessQuestListDto {
 
     private String needNft;
 
-    private Integer needTime;
+    private Integer needTimes;
 
     private Integer needToken;
 
@@ -31,5 +31,5 @@ public class FindSuccessQuestListDto {
 
     private Integer goal;
 
-    private Duration expiredDate;
+    private LocalDateTime expiredDate;
 }
