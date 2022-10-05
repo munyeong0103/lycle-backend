@@ -19,7 +19,7 @@ public class PutQuestListDto {
 
     private String needNft;
 
-    private Integer needTime;
+    private Integer needTimes;
 
     private Integer needToken;
 

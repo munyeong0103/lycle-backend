@@ -3,8 +3,10 @@ package com.example.lyclebackend.Quest.controller;
 import com.example.lyclebackend.Member.dto.ResultDto;
 import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Member.util.JwtUtil;
+import com.example.lyclebackend.Nft.dto.PostNftItemDto;
 import com.example.lyclebackend.Nft.dto.PutNftItemDto;
 import com.example.lyclebackend.Quest.dto.DeleteQuestListDto;
+import com.example.lyclebackend.Quest.dto.PostQuestListDto;
 import com.example.lyclebackend.Quest.dto.PutQuestListDto;
 import com.example.lyclebackend.Quest.service.QuestService;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +55,14 @@ public class QuestController {
         return ResponseEntity.status(HttpStatus.OK).body(questService.deleteQuest(questId, memberId));
     }
 
+    @PostMapping("")
+    public ResponseEntity postQuest(@RequestHeader("Authorization") String accessToken,
+                                    @RequestBody PostQuestListDto postQuestListDto) {
 
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+
+        return ResponseEntity.status(HttpStatus.OK).body(questService.postQuestList(postQuestListDto, memberId));
+    }
     // 1. 바뀐 테이블 값 수정하기
     // 2. memberId, authorization 추가하기
 
