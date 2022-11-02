@@ -12,4 +12,6 @@ import lombok.ToString;
 public class PutMyPageDto {
     private String nickname;
     private String profileImg;
+    private String password;
+    private String salt;
 }
