@@ -65,5 +65,7 @@ public class Member {
     public void update(PutMyPageDto putMyPageDto) {
         this.nickname = putMyPageDto.getNickname();
         this.profileImg = putMyPageDto.getProfileImg();
+        this.password = putMyPageDto.getPassword();
+        this.salt = putMyPageDto.getSalt();
     }
 }
