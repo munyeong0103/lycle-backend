@@ -58,21 +58,48 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-//def querydslDir = 'src/main/generated'
+////def querydslDir = 'src/main/generated'
+//def querydslDir = "$buildDir/generated/querydsl"
+//querydsl {
+//    jpa = true
+//    querydslSourcesDir = querydslDir
+//}
+//sourceSets {
+//    main.java.srcDir querydslDir
+//}
+//compileQuerydsl{
+//    options.annotationProcessorPath = configurations.querydsl
+//}
+//configurations {
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
+//    querydsl.extendsFrom compileClasspath
+//}
+
 def querydslDir = "$buildDir/generated/querydsl"
+
 querydsl {
     jpa = true
     querydslSourcesDir = querydslDir
 }
+
 sourceSets {
     main.java.srcDir querydslDir
 }
-compileQuerydsl{
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-    querydsl.extendsFrom compileClasspath
+
+/**
+ * comileQuerydsl.doFirst 추가
+ */
+compileQuerydsl.doFirst {
+    if(file(querydslDir).exists() )
+        delete(file(querydslDir))
 }
