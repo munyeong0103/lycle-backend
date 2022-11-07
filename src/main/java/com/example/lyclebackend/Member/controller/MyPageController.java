@@ -4,6 +4,7 @@ package com.example.lyclebackend.Member.controller;
 import com.example.lyclebackend.Item.dto.PutItemDto;
 import com.example.lyclebackend.Member.dto.PutMyPageDto;
 import com.example.lyclebackend.Member.dto.ResultDto;
+import com.example.lyclebackend.Member.dto.SignUpDto;
 import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Member.service.MemberService;
 import com.example.lyclebackend.Member.util.JwtUtil;
@@ -36,6 +37,16 @@ public class MyPageController {
                                       @PathVariable("member_id") Long myPageMemberId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findMyPage(myPageMemberId, memberId));
+    }
+
+    @GetMapping("/{member_id}/check")
+    public ResponseEntity findPassword(@RequestHeader("Authorization") String accessToken,
+                                       @RequestBody SignUpDto signUpDto,
+                                       @PathVariable("member_id") Long myPageMemberId) {
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+        ResultDto result = new ResultDto();
+        result.setResult(memberService.checkPassword(signUpDto, memberId, myPageMemberId));
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PutMapping("/{member_id}")
