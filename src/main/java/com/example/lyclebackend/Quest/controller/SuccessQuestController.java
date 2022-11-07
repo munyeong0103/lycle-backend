@@ -2,8 +2,7 @@ package com.example.lyclebackend.Quest.controller;
 
 import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Member.util.JwtUtil;
-import com.example.lyclebackend.Quest.dto.PostQuestListDto;
-import com.example.lyclebackend.Quest.dto.PostSuccessQuestListDto;
+import com.example.lyclebackend.Quest.dto.*;
 import com.example.lyclebackend.Quest.service.QuestService;
 import com.example.lyclebackend.Quest.service.SuccessQuestService;
 import lombok.RequiredArgsConstructor;
@@ -55,4 +54,35 @@ public class SuccessQuestController {
 
         return ResponseEntity.status(HttpStatus.OK).body(successQuestService.postSuccessQuestList(postSuccessQuestListDto, memberId));
     }
+
+    @PutMapping("/success") //category, level 둘 다 일치해야 수정할 수 있게 변경(quest_id 코드 삭제)
+    public ResponseEntity putSuccessQuest(@RequestHeader("Authorization") String accessToken,
+                                   @RequestBody PutSuccessQuestListDto putSuccessQuestListDto,
+                                   @RequestParam("success_quest_id") Long successQuestId) {
+
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+
+        return ResponseEntity.status(HttpStatus.OK).body(successQuestService.putSuccessQuestList(putSuccessQuestListDto, successQuestId, memberId));
+    }
+
+    @DeleteMapping("/success") //category, level 둘 다 일치해야 수정할 수 있게 변경(quest_id 코드 삭제)
+    public ResponseEntity deleteSuccessQuest(@RequestHeader("Authorization") String accessToken,
+                                      @RequestBody DeleteSuccessQuestListDto deleteSuccessQuestListDto,
+                                      @RequestParam("success_quest_id") Long successQuestId) {
+
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+
+        return ResponseEntity.status(HttpStatus.OK).body(successQuestService.deleteSuccessQuest(deleteSuccessQuestListDto, successQuestId, memberId));
+    }
+
+    @DeleteMapping("/deleteExpiredSuccess")
+    public ResponseEntity deleteExpiredSuccessQuest(@RequestHeader("Authorization") String accessToken,
+                                      @RequestParam(name = "expired_date", required = false, defaultValue = "") LocalDateTime expiredDate,
+                                      @RequestParam("success_quest_id") Long successQuestId) {
+
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+
+        return ResponseEntity.status(HttpStatus.OK).body(successQuestService.deleteExpiredSuccessQuest(expiredDate, successQuestId, memberId));
+    }
+
 }

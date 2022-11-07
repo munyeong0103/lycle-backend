@@ -14,4 +14,6 @@ import java.util.List;
 public interface SuccessQuestRepository extends JpaRepository<SuccessQuest, Long>, CustomSuccessQuestRepository {
 
     SuccessQuest findBySuccessQuestId(Long successQuestId);
+
+    void deleteBySuccessQuestId(Long successQuestId);
 }
