@@ -2,6 +2,8 @@ package com.example.lyclebackend.Quest.entity;
 
 
 import com.example.lyclebackend.Member.entity.Member;
+import com.example.lyclebackend.Quest.dto.PutQuestListDto;
+import com.example.lyclebackend.Quest.dto.PutSuccessQuestListDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -51,4 +53,10 @@ public class SuccessQuest {
     @ManyToOne
     @JoinColumn(name = "quest_id", foreignKey = @ForeignKey(name = "FK_quest_successquest"), insertable = false , updatable = false)
     private Quest quest;
+
+    public void update(PutSuccessQuestListDto putSuccessQuestListDto) {
+        this.category = putSuccessQuestListDto.getCategory();
+        this.level = putSuccessQuestListDto.getLevel();
+        this.expiredDate = putSuccessQuestListDto.getExpiredDate();
+    }
 }
