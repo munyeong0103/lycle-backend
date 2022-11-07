@@ -11,6 +11,7 @@ import com.example.lyclebackend.Quest.repository.QuestRepository;
 import com.example.lyclebackend.Quest.repository.SuccessQuestRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.asm.Advice;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +55,45 @@ public class SuccessQuestService {
         SuccessQuest successQuest = postSuccessQuestListDto.toEntity();
         //QuestRepository.save(memberId);
         return true;
+    }
+
+    @Transactional
+    public boolean putSuccessQuestList(PutSuccessQuestListDto putSuccessQuestListDto, Long successQuestId, Long memberId) {
+
+        SuccessQuest successQuest = successQuestRepository.findBySuccessQuestId(successQuestId);
+
+        if (successQuest.getSuccessQuestId() == successQuestId) {
+            successQuest.update(putSuccessQuestListDto);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Transactional
+    public boolean deleteSuccessQuest(DeleteSuccessQuestListDto deleteSuccessQuestListDto, Long successQuestId, Long memberId) { //category, level
+
+        SuccessQuest successQuest = successQuestRepository.findBySuccessQuestId(successQuestId);
+
+        if (successQuest.getSuccessQuestId() == successQuestId) {
+            successQuestRepository.deleteBySuccessQuestId(successQuest.getSuccessQuestId());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Transactional //반환
+    public boolean deleteExpiredSuccessQuest(LocalDateTime expiredDate, Long successQuestId, Long memberId) { //category, level
+
+        SuccessQuest successQuest = successQuestRepository.findBySuccessQuestId(successQuestId);
+
+        if (successQuest.getSuccessQuestId() == successQuestId) {
+            successQuestRepository.deleteBySuccessQuestId(successQuest.getSuccessQuestId());
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
