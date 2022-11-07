@@ -63,7 +63,5 @@ public class QuestController {
 
         return ResponseEntity.status(HttpStatus.OK).body(questService.postQuestList(postQuestListDto, memberId));
     }
-    // 1. 바뀐 테이블 값 수정하기
-    // 2. memberId, authorization 추가하기
 
 }
