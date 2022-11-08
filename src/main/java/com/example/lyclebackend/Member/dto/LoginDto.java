@@ -11,4 +11,5 @@ import lombok.ToString;
 @NoArgsConstructor
 public class LoginDto {
     private String accessToken;
+    private Long memberId;
 }
