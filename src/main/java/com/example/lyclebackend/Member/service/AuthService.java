@@ -1,5 +1,6 @@
 package com.example.lyclebackend.Member.service;
 
+import com.example.lyclebackend.Member.dto.LoginDto;
 import com.example.lyclebackend.Member.dto.SignUpDto;
 import com.example.lyclebackend.Member.entity.Member;
 import com.example.lyclebackend.Member.repository.MemberRepository;
@@ -36,18 +37,22 @@ public class AuthService {
         return true;
     }
 
-    public String login(SignUpDto signUpDto){
+    public LoginDto login(SignUpDto signUpDto){
         Member member = memberRepository.findByAccountName(signUpDto.getAccountName());
         String salt = member.getSalt();
         String encodePassword = saltUtil.encodePassword(salt, signUpDto.getPassword());
+        LoginDto loginDto = new LoginDto();
         if (member.getPassword().equals(encodePassword)) {
             final UserDetails userDetails = userDetailsService
                     .loadUserByUsername(signUpDto.getAccountName());
             final String jwt = jwtUtil.generateToken(userDetails);
 
-            return jwt;
+            loginDto.setAccessToken(jwt);
+            loginDto.setMemberId(member.getMemberId());
+
+            return loginDto;
         }
-        return "f";
+        return loginDto;
 
     }
 }
