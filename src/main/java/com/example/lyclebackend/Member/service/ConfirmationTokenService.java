@@ -1,6 +1,6 @@
 package com.example.lyclebackend.Member.service;
 
-import com.example.lyclebackend.Exception.BadRequestException;
+import com.example.lyclebackend.error.Exception.BadRequestException;
 import com.example.lyclebackend.Member.entity.ConfirmationToken;
 import com.example.lyclebackend.Member.repository.ConfirmationTokenRepository;
 import io.jsonwebtoken.lang.Assert;
@@ -37,7 +37,7 @@ public class ConfirmationTokenService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(receiverEmail);
         mailMessage.setSubject("회원가입 이메일 인증");
-        mailMessage.setText("http://13.125.198.232:8080/valid/email/confirm?token="+emailConfirmationToken.getId());
+        mailMessage.setText("http://3.38.210.200:8080/valid/email/confirm?token="+emailConfirmationToken.getId());
         emailSenderService.sendEmail(mailMessage);
 
         return emailConfirmationToken.getId();

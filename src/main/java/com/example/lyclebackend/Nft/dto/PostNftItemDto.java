@@ -8,18 +8,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class PostNftItemDto {
 
+
     private String nftItemImg;
 
+    @NotBlank(message = "제목은 필수 입력사항 입니다.")
     private String title;
 
+    @NotBlank(message = "제목은 필수 입력사항 입니다.")
     private Integer price;
 
+    @NotBlank(message = "내용은 필수 입력사항 입니다.")
     private String content;
 
     private Integer viewCnt;

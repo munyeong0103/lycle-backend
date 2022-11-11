@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/valid")
 @RequiredArgsConstructor
@@ -21,21 +23,21 @@ public class ValidController {
     private final ConfirmationTokenService confirmationTokenService;
 
     @PostMapping("accountName/exists")
-    public ResponseEntity<?> existsAccountName(@RequestBody AccountNameDto accountNameDto) {
+    public ResponseEntity<?> existsAccountName(@RequestBody @Valid AccountNameDto accountNameDto) {
         ResultDto result = new ResultDto();
         result.setResult(validService.existsAccountName(accountNameDto));
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping("nickname/exists")
-    public ResponseEntity<?> existsNickname(@RequestBody NicknameDto nicknameDto) {
+    public ResponseEntity<?> existsNickname(@RequestBody @Valid NicknameDto nicknameDto) {
         ResultDto result = new ResultDto();
         result.setResult(validService.existsNickname(nicknameDto));
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping("email/send")
-    public ResponseEntity<?> emailSend(@RequestBody EmailDto emailDto) {
+    public ResponseEntity<?> emailSend(@RequestBody @Valid EmailDto emailDto) {
         ResultDto result = new ResultDto();
         if(!validService.existsEmail(emailDto)) {
             confirmationTokenService.createEmailConfirmationToken(emailDto.getEmail());
@@ -53,7 +55,7 @@ public class ValidController {
     }
 
     @PostMapping("email/check")
-    public ResponseEntity<?> checkEmail(@RequestBody EmailDto emailDto) {
+    public ResponseEntity<?> checkEmail(@RequestBody @Valid EmailDto emailDto) {
         ResultDto result = new ResultDto();
         if(validService.checkEmail(emailDto)) {
             result.setResult(true);
@@ -64,7 +66,7 @@ public class ValidController {
     }
 
     @PostMapping("walletAddress/exists")
-    public ResponseEntity<?> checkWalletAddress(@RequestBody WalletAddressDto walletAddressDto) {
+    public ResponseEntity<?> checkWalletAddress(@RequestBody @Valid WalletAddressDto walletAddressDto) {
         ResultDto result = new ResultDto();
         if(validService.existsWalletAddress(walletAddressDto)) {
             result.setResult(true);
