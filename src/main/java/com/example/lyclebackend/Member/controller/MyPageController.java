@@ -32,6 +32,7 @@ public class MyPageController {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findMyPage(myPageMemberId, memberId));
     }
+
     @GetMapping("/{member_id}")
     public ResponseEntity findNftItem(@RequestHeader("Authorization") String accessToken,
                                       @PathVariable("member_id") Long myPageMemberId) {

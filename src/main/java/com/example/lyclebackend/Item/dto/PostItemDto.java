@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.swing.text.StyledEditorKit;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -15,12 +16,16 @@ import javax.swing.text.StyledEditorKit;
 @NoArgsConstructor
 public class PostItemDto {
 
+    @NotBlank(message = "아이템 이미지는 필수 입력사항 입니다.")
     private String itemImg;
 
+    @NotBlank(message = "제목은 필수 입력사항 입니다.")
     private String title;
+
 
     private Integer price;
 
+    @NotBlank(message = "내용은 필수 입력사항 입니다.")
     private String content;
 
     private Integer viewCnt;

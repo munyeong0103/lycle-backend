@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/item")
 @RequiredArgsConstructor
@@ -49,7 +51,7 @@ public class ItemController {
 
     @PostMapping("")
     public ResponseEntity postNftItem(@RequestHeader("Authorization") String accessToken,
-                                      @RequestBody PostItemDto postItemDto) {
+                                      @RequestBody @Valid PostItemDto postItemDto) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         itemService.postItem(postItemDto, memberId);
         ResultDto result = new ResultDto(true);
@@ -58,7 +60,7 @@ public class ItemController {
 
     @PutMapping("/{item_id}")
     public ResponseEntity putNftItem(@RequestHeader("Authorization") String accessToken,
-                                     @RequestBody PutItemDto putItemDto,
+                                     @RequestBody @Valid PutItemDto putItemDto,
                                      @PathVariable("item_id") Long itemId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         itemService.putItem(putItemDto, memberId, itemId);
