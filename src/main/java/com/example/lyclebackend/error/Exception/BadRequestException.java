@@ -1,4 +1,4 @@
-package com.example.lyclebackend.Exception;
+package com.example.lyclebackend.error.Exception;
 
 public class BadRequestException extends RuntimeException {
     private String errorCode;
