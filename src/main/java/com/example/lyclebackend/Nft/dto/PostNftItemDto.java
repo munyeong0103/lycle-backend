@@ -28,6 +28,12 @@ public class PostNftItemDto {
     @NotBlank(message = "내용은 필수 입력사항 입니다.")
     private String content;
 
+    @NotBlank(message = "nftId는 필수 입력사항 입니다.")
+    private Long nftId;
+
+    @NotBlank(message = "collectionName은 필수 입력사항 입니다.")
+    private String collectionName;
+
     private Integer viewCnt;
 
     private Long sellerId;
@@ -40,6 +46,8 @@ public class PostNftItemDto {
         NftItem build = NftItem.builder()
                 .nftItemImg(nftItemImg)
                 .title(title)
+                .nftId(nftId)
+                .collectionName(collectionName)
                 .price(price)
                 .content(content)
                 .viewCnt(viewCnt)

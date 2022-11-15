@@ -35,7 +35,7 @@ public class Member {
     @Column(name="nickname")
     private String nickname;
 
-    @Column(name="profile_img")
+    @Column(name="profile_img",columnDefinition = "TEXT")
     private String profileImg;
 
     @Column(name="wallet_address", unique = true)

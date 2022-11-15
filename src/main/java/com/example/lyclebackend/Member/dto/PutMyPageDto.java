@@ -1,14 +1,14 @@
 package com.example.lyclebackend.Member.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import javax.persistence.Column;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@Data
 public class PutMyPageDto {
     private String nickname;
     private String profileImg;
