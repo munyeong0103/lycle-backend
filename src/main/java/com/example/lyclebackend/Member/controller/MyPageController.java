@@ -66,7 +66,7 @@ public class MyPageController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @PostMapping("/like/{member_id}")
+    @GetMapping("/like/{member_id}")
     public ResponseEntity findList(@PathVariable("member_id") Long myPageMemberId,
                                    @RequestHeader("Authorization") String accessToken,
                                    @RequestParam(name = "title", required = false, defaultValue = "") String title,
