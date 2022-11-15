@@ -43,7 +43,7 @@ public class MyPageController {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findMyPage(myPageMemberId, memberId));
     }
 
-    @GetMapping("/check/{member_id}")
+    @PostMapping("/check/{member_id}")
     public ResponseEntity findPassword(@RequestHeader("Authorization") String accessToken,
                                        @RequestBody SignUpDto signUpDto,
                                        @PathVariable("member_id") Long myPageMemberId) {
@@ -66,7 +66,7 @@ public class MyPageController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/like/{member_id}")
+    @PostMapping("/like/{member_id}")
     public ResponseEntity findList(@PathVariable("member_id") Long myPageMemberId,
                                    @RequestHeader("Authorization") String accessToken,
                                    @RequestParam(name = "title", required = false, defaultValue = "") String title,
