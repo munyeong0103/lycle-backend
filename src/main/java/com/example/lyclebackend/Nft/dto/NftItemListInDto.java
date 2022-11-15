@@ -21,6 +21,10 @@ public class NftItemListInDto {
 
     private String nftItemImg;
 
+    private Long nftId;
+
+    private String collectionName;
+
     private String nickname;
 
     private Long memberId;

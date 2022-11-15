@@ -22,6 +22,12 @@ public class NftItem extends BaseTimeEntity {
     @Column(name="nft_item_id")
     private Long nftItemId;
 
+    @Column(name="nft_id")
+    private Long nftId;
+
+    @Column(name="collection_name")
+    private String collectionName;
+
     @Column(name="title")
     private String title;
 
