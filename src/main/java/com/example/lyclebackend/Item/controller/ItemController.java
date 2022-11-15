@@ -6,6 +6,7 @@ import com.example.lyclebackend.Item.dto.PutItemDto;
 import com.example.lyclebackend.Item.service.ItemService;
 import com.example.lyclebackend.Member.dto.ResultDto;
 import com.example.lyclebackend.Member.repository.MemberRepository;
+import com.example.lyclebackend.Member.service.AwsS3Service;
 import com.example.lyclebackend.Member.util.JwtUtil;
 import com.example.lyclebackend.Nft.dto.PostNftItemDto;
 import com.example.lyclebackend.Nft.dto.PutNftItemDto;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -28,6 +30,7 @@ public class ItemController {
     private final ItemService itemService;
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
+    private final AwsS3Service awsS3Service;
 
     @GetMapping("/test")
     public String test() {
@@ -51,8 +54,11 @@ public class ItemController {
 
     @PostMapping("")
     public ResponseEntity postNftItem(@RequestHeader("Authorization") String accessToken,
-                                      @RequestBody @Valid PostItemDto postItemDto) {
+                                      @RequestPart(value = "postItemDto") @Valid PostItemDto postItemDto,
+                                      @RequestPart(value = "file") MultipartFile multipartFile) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+        String itemImg = awsS3Service.uploadFileV1("itemImg", multipartFile);
+        postItemDto.setItemImg(itemImg);
         itemService.postItem(postItemDto, memberId);
         ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);

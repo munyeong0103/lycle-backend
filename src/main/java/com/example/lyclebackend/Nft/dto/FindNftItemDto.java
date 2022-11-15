@@ -19,6 +19,10 @@ public class FindNftItemDto {
 
     private String nickname;
 
+    private Long nftId;
+
+    private String collectionName;
+
     private String nftItemImg;
 
     private String profileImg;
