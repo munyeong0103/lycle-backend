@@ -76,4 +76,14 @@ public class MyPageController {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findList(title, sort, pageable, myPageMemberId, memberId));
     }
 
+    @GetMapping("/buy/{member_id}")
+    public ResponseEntity findBuyList(@PathVariable("member_id") Long myPageMemberId,
+                                   @RequestHeader("Authorization") String accessToken,
+                                   @RequestParam(name = "title", required = false, defaultValue = "") String title,
+                                   @RequestParam(name = "sort", required = false, defaultValue = "recent") String sort,
+                                   Pageable pageable) {
+        Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.findBuyList(title, sort, pageable, myPageMemberId, memberId));
+    }
+
 }
