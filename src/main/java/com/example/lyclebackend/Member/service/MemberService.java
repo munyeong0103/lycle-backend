@@ -1,6 +1,7 @@
 package com.example.lyclebackend.Member.service;
 
 
+import com.example.lyclebackend.Item.dto.ItemListDto;
 import com.example.lyclebackend.Member.dto.FindMyPageDto;
 import com.example.lyclebackend.Member.dto.PutMyPageDto;
 import com.example.lyclebackend.Member.dto.SignUpDto;
@@ -90,6 +91,19 @@ public class MemberService {
             nftItemListDto.setLimit(pageable.getPageSize());
             nftItemListDto.setItemList(memberRepository.findListBy(keyword, sort, pageable, memberId));
             return nftItemListDto;
+        }
+    }
+
+    @Transactional
+    public ItemListDto findBuyList(String keyword, String sort, Pageable pageable, Long myPageMemberId, Long memberId) {
+        ItemListDto itemListDto = new ItemListDto();
+        if (myPageMemberId != memberId) {
+            return itemListDto;
+        } else {
+            itemListDto.setPageCnt((int) pageable.getOffset());
+            itemListDto.setLimit(pageable.getPageSize());
+            itemListDto.setItemList(memberRepository.findBuyListBy(keyword, sort, pageable, memberId));
+            return itemListDto;
         }
     }
 

@@ -23,6 +23,8 @@ public class ItemListInDto {
 
     private Integer viewCnt;
 
+    private Integer count;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdDate;
 }
