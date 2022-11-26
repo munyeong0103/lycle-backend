@@ -1,5 +1,6 @@
 package com.example.lyclebackend.Member.repository;
 
+import com.example.lyclebackend.Item.dto.ItemListInDto;
 import com.example.lyclebackend.Member.dto.FindMyPageDto;
 import com.example.lyclebackend.Nft.dto.NftItemListInDto;
 import org.springframework.data.domain.Pageable;
@@ -10,4 +11,6 @@ public interface CustomMemberRepository {
     FindMyPageDto findMemberBy(Long myPageMemberId, Long memberId);
 
     List<NftItemListInDto> findListBy(String keyword, String sort, Pageable pageable, Long memberId);
+
+    List<ItemListInDto> findBuyListBy(String keyword, String sort, Pageable pageable, Long memberId);
 }

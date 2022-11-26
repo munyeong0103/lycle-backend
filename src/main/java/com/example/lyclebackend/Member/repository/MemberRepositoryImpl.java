@@ -1,5 +1,8 @@
 package com.example.lyclebackend.Member.repository;
 
+import com.example.lyclebackend.Item.dto.ItemListInDto;
+import com.example.lyclebackend.Item.entity.QItem;
+import com.example.lyclebackend.Item.entity.QItemMember;
 import com.example.lyclebackend.Member.dto.FindMyPageDto;
 import com.example.lyclebackend.Member.entity.QMember;
 import com.example.lyclebackend.Nft.dto.NftItemListInDto;
@@ -20,6 +23,10 @@ public class MemberRepositoryImpl implements CustomMemberRepository {
     QMember m = new QMember("m");
 
     QNftItem n = new QNftItem("n");
+
+    QItem i = new QItem("i");
+
+    QItemMember im = new QItemMember("im");
 
     public MemberRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
@@ -62,6 +69,20 @@ public class MemberRepositoryImpl implements CustomMemberRepository {
                 .from(n)
                 .leftJoin(n.seller, m)
                 .where(n.nftItemLikeList.any().memberId.eq(memberId).and(searchKeyword(keyword)))
+                .orderBy(sortCondition(sort))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    @Override
+    public List<ItemListInDto> findBuyListBy(String keyword, String sort, Pageable pageable, Long memberId) {
+
+        return queryFactory
+                .select(Projections.bean(ItemListInDto.class, i.itemId, i.itemImg, i.title, i.price, i.viewCnt, i.createdDate, im.count))
+                .from(i)
+                .leftJoin(im.item, i)
+                .where(i.itemMemberList.any().memberId.eq(memberId).and(searchKeyword(keyword)).and(i.isDelete.eq(Boolean.FALSE)))
                 .orderBy(sortCondition(sort))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
