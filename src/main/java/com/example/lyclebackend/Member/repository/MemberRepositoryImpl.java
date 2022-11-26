@@ -75,15 +75,32 @@ public class MemberRepositoryImpl implements CustomMemberRepository {
                 .fetch();
     }
 
+    private BooleanExpression searchKeywordBuy(String keyword){
+        if(keyword.length() == 0) {
+            return null;
+        } else {
+            return i.title.like("%" + keyword + "%");
+        }
+    }
+
+    private OrderSpecifier<?> sortConditionBuy(String sort) {
+        if (sort.equals("recent")){
+            return im.createdDate.desc();
+        } else if (sort.equals("view")) {
+            return i.viewCnt.desc();
+        }
+        return n.createdDate.desc();
+    }
+
     @Override
     public List<ItemListInDto> findBuyListBy(String keyword, String sort, Pageable pageable, Long memberId) {
 
         return queryFactory
-                .select(Projections.bean(ItemListInDto.class, i.itemId, i.itemImg, i.title, i.price, i.viewCnt, i.createdDate, im.count))
-                .from(i)
+                .select(Projections.bean(ItemListInDto.class, i.itemId, i.itemImg, i.title, i.price, i.viewCnt, im.createdDate, im.count))
+                .from(im)
                 .leftJoin(im.item, i)
-                .where(i.itemMemberList.any().memberId.eq(memberId).and(searchKeyword(keyword)).and(i.isDelete.eq(Boolean.FALSE)))
-                .orderBy(sortCondition(sort))
+                .where(i.itemMemberList.any().memberId.eq(memberId).and(searchKeywordBuy(keyword)).and(i.isDelete.eq(Boolean.FALSE)))
+                .orderBy(sortConditionBuy(sort))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
