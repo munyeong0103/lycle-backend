@@ -20,7 +20,7 @@ public class SignUpDto {
     @NotBlank(message = "비밀번호는 필수 입력사항 입니다.")
     private String password;
 
-    @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$", message = "닉네임은 특수문자를 제외한 2~10자리여야 합니다.")
+    @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9-_]{4,10}$", message = "닉네임은 특수문자를 제외한 4~10자리여야 합니다.")
     @NotBlank(message = "닉네임은 필수 입력사항 입니다.")
     private String nickname;
 
