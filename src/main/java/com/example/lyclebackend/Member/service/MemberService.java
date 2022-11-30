@@ -82,7 +82,7 @@ public class MemberService {
             } else {
                 String pattern = "^[ㄱ-ㅎ가-힣a-z0-9-_]{4,10}$";
                 boolean result = Pattern.matches(pattern, putMyPageDto.getNickname());
-                if(member.getNickname() != putMyPageDto.getNickname()){
+                if(!member.getNickname().equals(putMyPageDto.getNickname())){
                     if(!result) {
                         throw new RestApiException(PutMyPageErrorCode.FAIL_PUT_PAGE_NICKNAME);
                     }
