@@ -78,7 +78,7 @@ public class AuthService {
 
             loginDto.setAccessToken(jwt);
             loginDto.setMemberId(member.getMemberId());
-
+            loginDto.setNickname(member.getNickname());
             return loginDto;
         }
         return loginDto;
