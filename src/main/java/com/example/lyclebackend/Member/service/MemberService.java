@@ -9,6 +9,9 @@ import com.example.lyclebackend.Member.entity.Member;
 import com.example.lyclebackend.Member.repository.MemberRepository;
 import com.example.lyclebackend.Member.util.SaltUtil;
 import com.example.lyclebackend.Nft.dto.NftItemListDto;
+import com.example.lyclebackend.error.ErrorCode.PutMyPageErrorCode;
+import com.example.lyclebackend.error.ErrorCode.SignUpErrorCode;
+import com.example.lyclebackend.error.Exception.RestApiException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +19,9 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.Valid;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -56,11 +62,16 @@ public class MemberService {
         Member member = memberRepository.findByMemberId(myPageMemberId);
         if (myPageMemberId == memberId) {
             if (putMyPageDto.getPassword() != null && putMyPageDto.getPassword().length() != 0){
+
+                String pattern = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}";
+                boolean result = Pattern.matches(pattern, putMyPageDto.getPassword());
+                if(!result) {
+                    throw new RestApiException(PutMyPageErrorCode.FAIL_PUT_PAGE_PASSWORD);
+                }
+
                 String salt = saltUtil.genSalt();
                 putMyPageDto.setSalt(salt);
                 putMyPageDto.setPassword(saltUtil.encodePassword(salt, putMyPageDto.getPassword()));
-                log.info(putMyPageDto.getPassword());
-                log.info(member.getPassword());
             } else {
                 putMyPageDto.setSalt(member.getSalt());
                 putMyPageDto.setPassword(member.getPassword());
@@ -68,6 +79,16 @@ public class MemberService {
 
             if (putMyPageDto.getNickname() == null) {
                 putMyPageDto.setNickname(member.getNickname());
+            } else {
+                String pattern = "^[ㄱ-ㅎ가-힣a-z0-9-_]{4,10}$";
+                boolean result = Pattern.matches(pattern, putMyPageDto.getNickname());
+                if(!result) {
+                    throw new RestApiException(PutMyPageErrorCode.FAIL_PUT_PAGE_NICKNAME);
+                }
+
+                if(memberRepository.existsByNickname(putMyPageDto.getNickname())){
+                    throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_NICKNAME);
+                }
             }
 
             if (putMyPageDto.getProfileImg() == null) {
