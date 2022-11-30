@@ -55,7 +55,7 @@ public class MemberService {
     public boolean putMyPage(PutMyPageDto putMyPageDto, Long memberId, Long myPageMemberId) {
         Member member = memberRepository.findByMemberId(myPageMemberId);
         if (myPageMemberId == memberId) {
-            if (putMyPageDto.getPassword() != null){
+            if (putMyPageDto.getPassword() != null || putMyPageDto.getPassword().length() != 0){
                 String salt = saltUtil.genSalt();
                 putMyPageDto.setSalt(salt);
                 putMyPageDto.setPassword(saltUtil.encodePassword(salt, putMyPageDto.getPassword()));
