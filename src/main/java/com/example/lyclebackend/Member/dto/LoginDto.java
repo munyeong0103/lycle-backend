@@ -12,4 +12,5 @@ import lombok.ToString;
 public class LoginDto {
     private String accessToken;
     private Long memberId;
+    private String nickname;
 }
