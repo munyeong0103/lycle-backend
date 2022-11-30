@@ -57,7 +57,7 @@ public class MyPageController {
     public ResponseEntity putNftItem(@RequestHeader("Authorization") String accessToken,
                                      @RequestPart(value = "putMyPageDto") PutMyPageDto putMyPageDto,
                                      @PathVariable("member_id") Long myPageMemberId,
-                                     @RequestPart(value = "file") MultipartFile multipartFile) {
+                                     @RequestPart(value = "file", required = false) MultipartFile multipartFile) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
         String profileImg = awsS3Service.uploadFileV1("profileImg", multipartFile);
         putMyPageDto.setProfileImg(profileImg);
