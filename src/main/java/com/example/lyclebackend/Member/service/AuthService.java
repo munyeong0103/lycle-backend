@@ -37,23 +37,23 @@ public class AuthService {
     @Transactional
     public boolean saveMember(SignUpDto signUpDto) {
 
-        if(!memberRepository.existsByAccountName(signUpDto.getAccountName())){
-            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_ID);
-        }
-
-        if(!memberRepository.existsByNickname(signUpDto.getNickname())){
-            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_NICKNAME);
-        }
-
-        if(!memberRepository.existsByWalletAddress(signUpDto.getWalletAddress())){
-            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_WALLET_ADDRESS);
-        }
-
-        EmailDto emailDto = new EmailDto();
-        emailDto.setEmail(signUpDto.getEmail());
-        if(!validService.checkEmail(emailDto)) {
-            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_EMAIL);
-        }
+//        if(!memberRepository.existsByAccountName(signUpDto.getAccountName())){
+//            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_ID);
+//        }
+//
+//        if(!memberRepository.existsByNickname(signUpDto.getNickname())){
+//            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_NICKNAME);
+//        }
+//
+//        if(!memberRepository.existsByWalletAddress(signUpDto.getWalletAddress())){
+//            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_WALLET_ADDRESS);
+//        }
+//
+//        EmailDto emailDto = new EmailDto();
+//        emailDto.setEmail(signUpDto.getEmail());
+//        if(!validService.checkEmail(emailDto)) {
+//            throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_EMAIL);
+//        }
 
         String salt = saltUtil.genSalt();
         signUpDto.setSalt(salt);
