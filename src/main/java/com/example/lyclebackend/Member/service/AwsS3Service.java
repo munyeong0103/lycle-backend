@@ -30,6 +30,7 @@ public class AwsS3Service {
     public String uploadFileV1(String folder, MultipartFile multipartFile) {
         //validateFileExists(multipartFile);
 
+
         String fileName = CommonUtils.buildFileName(folder, multipartFile.getOriginalFilename());
         log.info(fileName);
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -46,6 +47,7 @@ public class AwsS3Service {
         }
 
         return amazonS3Client.getUrl(bucketName, fileName).toString();
+
     }
 
 //    private void validateFileExists(MultipartFile multipartFile) {
