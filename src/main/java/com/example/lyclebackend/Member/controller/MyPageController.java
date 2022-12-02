@@ -60,11 +60,16 @@ public class MyPageController {
                                      @RequestPart(value = "putMyPageDto") PutMyPageDto putMyPageDto,
                                      @PathVariable("member_id") Long myPageMemberId,
                                      @RequestPart(value = "file", required = false) MultipartFile multipartFile) {
+
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        String profileImg = awsS3Service.uploadFileV1("profileImg", multipartFile);
+        String profileImg = null;
+        if(multipartFile != null) {
+            profileImg = awsS3Service.uploadFileV1("profileImg", multipartFile);
+        }
+
         putMyPageDto.setProfileImg(profileImg);
         memberService.putMyPage(putMyPageDto, memberId, myPageMemberId);
-        ResultDto result = new ResultDto(false);
+        ResultDto result = new ResultDto(true);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
