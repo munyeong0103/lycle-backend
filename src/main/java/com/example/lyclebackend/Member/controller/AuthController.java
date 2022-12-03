@@ -26,7 +26,7 @@ public class AuthController {
     @GetMapping("/test")
     public String test() {
 
-        return "이메일 인증이 완료되었습니다";
+        return "장은주";
     }
 
     @PostMapping("/sign-up")
