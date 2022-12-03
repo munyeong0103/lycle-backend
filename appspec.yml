@@ -3,9 +3,10 @@ os: linux
 
 files:
   - source: /
-    destination: /opt/lycleCodeDeploy
+    destination: /home/ubuntu/lycle-backend
+    overwrite: yes
 permissions:
-  - object: /opt/lycleCodeDeploy/
+  - object: /
     owner: ubuntu
     group: ubuntu
     mode: 755
