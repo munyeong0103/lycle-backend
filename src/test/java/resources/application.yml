@@ -1,14 +1,21 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://localhost:3306/lycle_backend?serverTimezone=Asia/Seoul
-    url: jdbc:mysql://lycle-rds.c9qq9ay6jtoe.ap-northeast-2.rds.amazonaws.com:3306/lycle_rds?serverTimezone=Asia/Seoul
-    username: root
-    password: lycle2022-2
+  config:
+    activate:
+      on-profile: test
+  h2:
+    console:
+      enabled: true
   jpa:
-    hibernate:
-      ddl-auto: update
-      show-sql: true # DDL 출력
+    database: h2
+    generate-ddl: off
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL;
+    username: SA
+    password:
+    initialization-mode: always
+    schema: classpath:schema-h2.sql
+    data: classpath:data-h2.sql
   mail:
     host: smtp.gmail.com
     port: 587
