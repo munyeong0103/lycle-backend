@@ -51,7 +51,7 @@ public class ValidController {
     @GetMapping("email/confirm")
     public String confirmEmail(@RequestParam String token) {
         validService.confirmEmail(token);
-        return "이메일 인증이 완료되었습니다";
+        return "이메일 인증이 완료되었습니다. 페이지로 돌아가서 인증확인 버튼을 눌러주세요.";
     }
 
     @PostMapping("email/check")
