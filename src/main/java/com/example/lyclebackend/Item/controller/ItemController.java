@@ -78,8 +78,8 @@ public class ItemController {
     public ResponseEntity deleteNftItem(@RequestHeader("Authorization") String accessToken,
                                         @PathVariable("item_id") Long itemId) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        itemService.deleteItem(memberId, itemId);
-        ResultDto result = new ResultDto(true);
+
+        ResultDto result = new ResultDto(itemService.deleteItem(memberId, itemId));
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -88,8 +88,7 @@ public class ItemController {
                                      @PathVariable("item_id") Long itemId,
                                      @RequestBody PostItemMemberDto postItemMemberDto) {
         Long memberId = memberRepository.findMemberIdByAccountName(jwtUtil.extractUsername(accessToken.substring(7)));
-        itemService.buyItem(postItemMemberDto, itemId, memberId);
-        ResultDto result = new ResultDto(true);
+        ResultDto result = new ResultDto(itemService.buyItem(postItemMemberDto, itemId, memberId));
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
