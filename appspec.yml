@@ -8,10 +8,10 @@ files:
 permissions:
   - object: /
     pattern: "**"
-    owner: root
-    group: root
+    owner: ubuntu
+    group: ubuntu
 hooks:
   AfterInstall:
     - location: deploy.sh
       timeout: 200
-      runas: root
+      runas: ubuntu
