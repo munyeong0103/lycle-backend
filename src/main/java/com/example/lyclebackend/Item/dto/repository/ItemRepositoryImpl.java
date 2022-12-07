@@ -1,10 +1,9 @@
-package com.example.lyclebackend.Item.repository;
+package com.example.lyclebackend.Item.dto.repository;
 
 import com.example.lyclebackend.Item.dto.FindItemDto;
 import com.example.lyclebackend.Item.dto.ItemListInDto;
 import com.example.lyclebackend.Item.entity.QItem;
 import com.example.lyclebackend.Member.entity.QMember;
-import com.example.lyclebackend.Nft.dto.FindNftItemDto;
 import com.example.lyclebackend.Nft.entity.QNftItemLike;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;

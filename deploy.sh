@@ -18,6 +18,11 @@ else
   sleep 5
 fi
 
+sudo chmod +x ./gradle
+sleep 5
+sudo ./gradlew build
+sleep 150
+
 PROJECT_ROOT="/home/ubuntu/lycle-backend"
 JAR_FILE="$PROJECT_ROOT/lycle-backend-0.0.1-SNAPSHOT.jar"
 

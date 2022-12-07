@@ -1,4 +1,4 @@
-package com.example.lyclebackend.Item.repository;
+package com.example.lyclebackend.Item.dto.repository;
 
 import com.example.lyclebackend.Item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
