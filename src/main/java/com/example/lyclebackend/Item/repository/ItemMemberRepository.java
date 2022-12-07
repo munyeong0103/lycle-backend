@@ -1,4 +1,4 @@
-package com.example.lyclebackend.Item.dto.repository;
+package com.example.lyclebackend.Item.repository;
 
 import com.example.lyclebackend.Item.entity.Item;
 import com.example.lyclebackend.Item.entity.ItemMember;
