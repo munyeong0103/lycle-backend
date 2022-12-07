@@ -23,8 +23,8 @@ sleep 5
 sudo ./gradlew build
 sleep 150
 
-PROJECT_ROOT="/home/ubuntu/lycle-backend"
-JAR_FILE="$PROJECT_ROOT/build/libs/lycle-backend-0.0.1-SNAPSHOT.jar"
+PROJECT_ROOT="/home/ubuntu/lycle-backend/build/libs"
+JAR_FILE="$PROJECT_ROOT/lycle-backend-0.0.1-SNAPSHOT.jar"
 
 TIME_NOW=$(date +%c)
 
