@@ -24,7 +24,7 @@ sudo ./gradlew build
 sleep 150
 
 PROJECT_ROOT="/home/ubuntu/lycle-backend"
-JAR_FILE="$PROJECT_ROOT/lycle-backend-0.0.1-SNAPSHOT.jar"
+JAR_FILE="$PROJECT_ROOT/"
 
 TIME_NOW=$(date +%c)
 
@@ -34,4 +34,4 @@ cp $PROJECT_ROOT/build/libs/*.jar $JAR_FILE
 
 # jar 파일 실행
 echo "$TIME_NOW > $JAR_FILE 파일 실행"
-nohup java -jar $JAR_FILE &
+nohup java -jar lycle-backend-0.0.1-SNAPSHOT.jar &
