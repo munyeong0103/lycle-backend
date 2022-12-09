@@ -13,7 +13,7 @@ then
 else
   echo "> kill $CURRENT_PID"
   sudo kill $CURRENT_PID
-  sleep 5
+  sleep 15
 fi
 
 PROJECT_ROOT="/home/ubuntu/lycle-backend/build/libs"
