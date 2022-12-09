@@ -26,7 +26,7 @@ public class AuthController {
     @GetMapping("/test")
     public String test() {
 
-        return "정말루ㅜㅜㅜㅜㅜㅜㅜ 진짜!! 진짜루 진짜 제발 끝!!!!";
+        return "찐짜 정말루ㅜㅜㅜㅜㅜㅜㅜ 진짜!! 진짜루 진짜 제발 끝!!!!";
     }
 
     @PostMapping("/sign-up")
