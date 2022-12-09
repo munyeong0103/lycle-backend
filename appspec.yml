@@ -19,3 +19,4 @@ hooks:
     - location: start.sh
       timeout: 60
       runas: ubuntu
+
