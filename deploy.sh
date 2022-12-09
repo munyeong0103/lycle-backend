@@ -21,8 +21,6 @@ fi
 PROJECT_ROOT="/home/ubuntu/lycle-backend/build/libs"
 JAR_FILE="$PROJECT_ROOT/lycle-backend-0.0.1-SNAPSHOT.jar"
 
-TIME_NOW=$(date +%c)
-
 # jar 파일 실행
 echo "$TIME_NOW > $JAR_FILE 파일 실행"
 nohup java -jar $JAR_FILE &
