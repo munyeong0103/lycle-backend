@@ -1,15 +1,17 @@
-REPOSITORY=/home/ubuntu/lycle-backend/build/libs
+#!/usr/bin/env bash
 
-echo "> 현재 구동 중인 애플리케이션 pid 확인"
+PROJECT_ROOT="/home/ubuntu/lycle-backend/build/libs" #코드가 주입되는 경로
+JAR_FILE="$PROJECT_ROOT/lycle-backend-0.0.1-SNAPSHOT.jar" #build.gradle에서 설정한 파일명으로 변경
 
-CURRENT_PID=$(pgrep -fl action | grep java | awk '{print $1}')
+DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
-echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
+TIME_NOW=$(date +%c)
 
-if [ -z "$CURRENT_PID" ]; then
-  echo "현재 구동 중인 애플리케이션이 없으므로 종료하지 않습니다."
+CURRENT_PID=$(pgrep -f $JAR_FILE)
+
+if [ -z $CURRENT_PID ]; then
+  echo "$TIME_NOW > 현재 실행중인 애플리케이션이 없습니다" >> $DEPLOY_LOG
 else
-  echo "> kill -15 $CURRENT_PID"
-  sudo kill -15 $CURRENT_PID
-  sleep 100
+  echo "$TIME_NOW > 실행중인 $CURRENT_PID 애플리케이션 종료 " >> $DEPLOY_LOG
+  kill -15 $CURRENT_PID
 fi
