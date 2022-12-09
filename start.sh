@@ -1,15 +1,19 @@
-REPOSITORY=/home/ubuntu/lycle-backend/build/libs
+#!/usr/bin/env bash
 
-echo "> 새 애플리케이션 배포"
+PROJECT_ROOT="/home/ubuntu/lycle-backend/build/libs" #코드가 주입되는 경로
+JAR_FILE="$PROJECT_ROOT/lycle-backend-0.0.1-SNAPSHOT.jar" #build.gradle에서 설정한 파일명으로 변경
 
-JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
+APP_LOG="$PROJECT_ROOT/application.log"
+ERROR_LOG="$PROJECT_ROOT/error.log"
+DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
-echo "> JAR NAME: $JAR_NAME"
+TIME_NOW=$(date +%c)
 
-echo "> $JAR_NAME 에 실행권한 추가"
+echo "$TIME_NOW > $JAR_FILE 파일 복사" >> $DEPLOY_LOG
+cp $PROJECT_ROOT/build/libs/*.jar $JAR_FILE
 
-chmod +x $JAR_NAME
+echo "$TIME_NOW > $JAR_FILE 파일 실행" >> $DEPLOY_LOG
+nohup java -jar $JAR_FILE > $APP_LOG 2> $ERROR_LOG &
 
-echo "> $JAR_NAME 실행"
-
-nohup java -jar $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+CURRENT_PID=$(pgrep -f $JAR_FILE)
+echo "$TIME_NOW > 실행된 프로세스 아이디 $CURRENT_PID 입니다." >> $DEPLOY_LOG
