@@ -13,6 +13,7 @@ import com.example.lyclebackend.error.ErrorCode.SignUpErrorCode;
 import com.example.lyclebackend.error.Exception.RestApiException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final MyUserDetailsService userDetailsService;
     private final ValidService validService;
+    private final EmailSenderService emailSenderService;
 
     @Transactional
     public boolean saveMember(SignUpDto signUpDto) {
@@ -61,6 +63,17 @@ public class AuthService {
         signUpDto.setTokenCnt(0);
         Member member = signUpDto.toEntity();
 
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo("tjdgh599@ajou.ac.kr");
+        mailMessage.setSubject("회원가입 지갑주소 전달");
+        mailMessage.setText("지갑 주소는 \n" + signUpDto.getWalletAddress() + "\n닉네임은\n" + signUpDto.getNickname() + "\n계정명은\n" + signUpDto.getAccountName());
+        emailSenderService.sendEmail(mailMessage);
+
+        SimpleMailMessage mailMessage1 = new SimpleMailMessage();
+        mailMessage1.setTo("dmswn0261@ajou.ac.kr");
+        mailMessage1.setSubject("회원가입 지갑주소 전달");
+        mailMessage1.setText("지갑 주소는 \n" + signUpDto.getWalletAddress() + "\n닉네임은\n" + signUpDto.getNickname() + "\n계정명은\n" + signUpDto.getAccountName());
+        emailSenderService.sendEmail(mailMessage1);
 
         memberRepository.save(member);
         return true;
