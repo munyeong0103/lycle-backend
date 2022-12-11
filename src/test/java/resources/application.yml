@@ -1,16 +1,21 @@
 spring:
   datasource:
     initialization-mode: always
-    url: jdbc:h2:mem
+    url: jdbc:h2:mem:testdb
     username: sa
     password:
     driver-class-name: org.h2.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  h2:
+    console:
+      enabled: true
   mail:
     host: smtp.gmail.com
     port: 587
@@ -43,5 +48,7 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
-
+logging:
+  level:
+    org.hibernate.SQL: debug
 
