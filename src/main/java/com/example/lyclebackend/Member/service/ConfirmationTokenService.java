@@ -27,7 +27,7 @@ public class ConfirmationTokenService {
         return confirmationTokenRepository.existsByReceiverEmail(receiverEmail);
     }
 
-    public String createEmailConfirmationToken(String receiverEmail){
+    public String createEmailConfirmationToken(String receiverEmail, Integer check){
 
         Assert.hasText(receiverEmail,"receiverEmail은 필수 입니다.");
 
@@ -37,10 +37,14 @@ public class ConfirmationTokenService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(receiverEmail);
         mailMessage.setSubject("회원가입 이메일 인증");
-        mailMessage.setText("http://3.38.210.200:8080/valid/email/confirm?token="+emailConfirmationToken.getId());
+        if (check == 1) {
+            mailMessage.setText("http://3.38.210.200:8080/valid/email/confirm?token=" + emailConfirmationToken.getId());
+        } else{
+            mailMessage.setText("http://localhost:8080/valid/email/confirm?token=" + emailConfirmationToken.getId());
+        }
         emailSenderService.sendEmail(mailMessage);
 
-        return emailConfirmationToken.getId();
+        return "/valid/email/confirm?token="+emailConfirmationToken.getId();
     }
 
     /**

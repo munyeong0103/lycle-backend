@@ -40,20 +40,24 @@ public class AuthService {
     public boolean saveMember(SignUpDto signUpDto) {
 
         if(memberRepository.existsByAccountName(signUpDto.getAccountName())){
+            log.info("1a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_ID);
         }
 
         if(memberRepository.existsByNickname(signUpDto.getNickname())){
+            log.info("2a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_NICKNAME);
         }
 
         if(memberRepository.existsByWalletAddress(signUpDto.getWalletAddress())){
+            log.info("3a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_WALLET_ADDRESS);
         }
 
         EmailDto emailDto = new EmailDto();
         emailDto.setEmail(signUpDto.getEmail());
         if(!validService.checkEmail(emailDto)) {
+            log.info("4a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_EMAIL);
         }
 
@@ -64,7 +68,7 @@ public class AuthService {
         Member member = signUpDto.toEntity();
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo("tjdgh599@ajou.ac.kr");
+        mailMessage.setTo("qq9725@ajou.ac.kr");
         mailMessage.setSubject("회원가입 지갑주소 전달");
         mailMessage.setText("지갑 주소는 \n" + signUpDto.getWalletAddress() + "\n닉네임은\n" + signUpDto.getNickname() + "\n계정명은\n" + signUpDto.getAccountName());
         emailSenderService.sendEmail(mailMessage);
