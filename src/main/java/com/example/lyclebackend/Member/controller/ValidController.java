@@ -40,7 +40,7 @@ public class ValidController {
     public ResponseEntity<?> emailSend(@RequestBody @Valid EmailDto emailDto) {
         ResultDto result = new ResultDto();
         if(!validService.existsEmail(emailDto)) {
-            confirmationTokenService.createEmailConfirmationToken(emailDto.getEmail());
+            confirmationTokenService.createEmailConfirmationToken(emailDto.getEmail(), 1);
             result.setResult(true);
         } else {
             result.setResult(false);

@@ -40,20 +40,24 @@ public class AuthService {
     public boolean saveMember(SignUpDto signUpDto) {
 
         if(memberRepository.existsByAccountName(signUpDto.getAccountName())){
+            log.info("1a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_ID);
         }
 
         if(memberRepository.existsByNickname(signUpDto.getNickname())){
+            log.info("2a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_NICKNAME);
         }
 
         if(memberRepository.existsByWalletAddress(signUpDto.getWalletAddress())){
+            log.info("3a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_WALLET_ADDRESS);
         }
 
         EmailDto emailDto = new EmailDto();
         emailDto.setEmail(signUpDto.getEmail());
         if(!validService.checkEmail(emailDto)) {
+            log.info("4a");
             throw new RestApiException(SignUpErrorCode.FAIL_SIGNUP_EMAIL);
         }
 

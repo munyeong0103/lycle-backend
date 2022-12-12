@@ -49,9 +49,10 @@ dependencies {
 
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    implementation 'org.projectlombok:lombok:1.18.20'
 
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'com.h2database:h2' // 테스트 코드 작성시 사용할 DB(H2)
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
