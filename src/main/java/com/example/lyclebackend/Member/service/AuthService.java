@@ -64,7 +64,7 @@ public class AuthService {
         Member member = signUpDto.toEntity();
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo("tjdgh599@ajou.ac.kr");
+        mailMessage.setTo("qq9725@ajou.ac.kr");
         mailMessage.setSubject("회원가입 지갑주소 전달");
         mailMessage.setText("지갑 주소는 \n" + signUpDto.getWalletAddress() + "\n닉네임은\n" + signUpDto.getNickname() + "\n계정명은\n" + signUpDto.getAccountName());
         emailSenderService.sendEmail(mailMessage);
